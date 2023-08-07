@@ -203,7 +203,7 @@
             <h1>Login</h1>
             <form method="post" action="{{ route('usuarios.login') }}">
                 @csrf
-                <input type="email" name="email" placeholder="Email" required="required" />
+                <input name="usuario" placeholder="Email" required="required" />
                 <input type="password" name="senha" placeholder="Senha" required="required" />
                 <button type="submit" class="btn btn-info btn-block btn-large">Entrar</button>
             </form>

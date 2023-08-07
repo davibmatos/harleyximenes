@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Models\usuario;
@@ -31,6 +30,13 @@ $usuario = usuario::find($id_usuario);
     <link href="{{ URL::asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
     <link href="{{ URL::asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
 
@@ -58,21 +64,24 @@ $usuario = usuario::find($id_usuario);
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">          
+            <hr class="sidebar-divider my-0">
 
 
-             <!-- Cadastros Dropdown -->
-             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros" aria-expanded="true" aria-controls="collapseCadastros">
+            <!-- Cadastros Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros"
+                    aria-expanded="true" aria-controls="collapseCadastros">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Cadastros</span>
                 </a>
-                <div id="collapseCadastros" class="collapse" aria-labelledby="headingCadastros" data-parent="#accordionSidebar">
+                <div id="collapseCadastros" class="collapse" aria-labelledby="headingCadastros"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('imoveis.index') }}">Imóveis</a>
-                        <a class="collapse-item" href="{{ route('inquilinos.index') }}">Inquilinos</a>
-                        <a class="collapse-item" href="{{ route('apartamentos.index') }}">Apartamentos</a>
-                        {{-- <a class="collapse-item" href="{{ route('sindicos.index') }}">Síndicos</a> --}}
+                        <a class="collapse-item" href="{{ route('clientes.index') }}">Clientes</a>
+                        <a class="collapse-item" href="{{ route('empresas.index') }}">Empresas</a>
+                        <a class="collapse-item" href="{{ route('processos.index') }}">Processos</a>
+                        <a class="collapse-item" href="{{ route('audiencias.index') }}">Audiências</a>
+                        <a class="collapse-item" href="{{ route('prazos.index') }}">Prazos</a>
                     </div>
                 </div>
             </li>
@@ -83,20 +92,25 @@ $usuario = usuario::find($id_usuario);
             <!-- Contratos -->
             @if ($usuario->nivel == 'admin')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contratos.index') }}">
+                    <a class="nav-link" href="{{ route('varas.index') }}">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Contratos</span></a>
+                        <span>Varas</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('varas.index') }}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Comarcas</span></a>
                 </li>
             @endif
 
-            <!-- Painel Financeiro -->
+            {{-- <!-- Painel Financeiro -->
             @if ($usuario->nivel == 'admin')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('finance.index') }}">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Painel Financeiro</span></a>
                 </li>
-            @endif
+            @endif --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -202,7 +216,7 @@ $usuario = usuario::find($id_usuario);
 
 
 
-                <form id="form-perfil" method="POST" action="{{ route('admin.editar', $id_usuario) }}">
+                <form id="form-perfil" method="POST" action="">
                     @csrf
                     @method('put');
                     <div class="modal-body">

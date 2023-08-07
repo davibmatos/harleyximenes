@@ -1,9 +1,9 @@
 @extends('templates.painel-adm')
-@section('title', 'Imóveis')
+@section('title', 'Empresas')
 @section('content')
 <?php 
 @session_start();
-if(@$_SESSION['nivel_usuario'] != 'admin'){ 
+if(@$_SESSION['nivel_usuario'] != 'admin' && @$_SESSION['nivel_usuario'] != 'adv' ){ 
   echo "<script language='javascript'> window.location='./' </script>";
 }
 if(!isset($id)){
@@ -14,7 +14,7 @@ if(!isset($id)){
 ?>
 
 
-<a href="{{route('imoveis.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Imóvel</a>
+<a href="{{route('empresas.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Empresa</a>
 @if (session('error'))
     <div class="alert alert-danger mt-2">
       {{ session('error') }}
@@ -29,10 +29,10 @@ if(!isset($id)){
       <thead>
         <tr>
           <th>Nome</th>
-          <th>Matrícula</th>
-          <th>Endereço</th>
-          <th>Bairro</th>
-          <th>Número</th>
+          <th>CNPJ</th>
+          <th>Telefone</th>
+          <th>Telefone 2</th>
+          <th>Email</th>
           <th>Ações</th>
         </tr>
       </thead>
@@ -40,14 +40,14 @@ if(!isset($id)){
       <tbody>
       @foreach($itens as $item)
          <tr>
-            <td>{{$item->edificio}}</td>
-            <td>{{$item->matricula}}</td>
-            <td>{{$item->endereco}}</td>
-            <td>{{$item->bairro}}</td>
-            <td>{{$item->numero}}</td>
+            <td>{{$item->nome}}</td>
+            <td>{{$item->cnpj}}</td>
+            <td>{{$item->telefone}}</td>
+            <td>{{$item->telefone2}}</td>
+            <td>{{$item->email}}</td>
             <td>            
-            <a href="{{route('imoveis.edit', $item)}}"><i class="fas fa-edit text-info mr-1"></i></a>
-            <a href="{{route('imoveis.modal', $item)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
+            <a href="{{route('empresas.edit', $item)}}"><i class="fas fa-edit text-info mr-1"></i></a>
+            <a href="{{route('empresas.modal', $item)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
             </td>
         </tr>
         @endforeach 
@@ -88,7 +88,7 @@ if(!isset($id)){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <form method="POST" action="{{route('imoveis.delete', $id)}}">
+        <form method="POST" action="{{route('empresas.delete', $id)}}">
           @csrf
           @method('delete')
           <button type="submit" class="btn btn-danger">Excluir</button>

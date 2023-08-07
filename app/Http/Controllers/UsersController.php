@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usuarios;
+use App\Models\usuario;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -11,8 +11,8 @@ class UsersController extends Controller
     {
         $usuario = $request->usuario;
         $senha = $request->senha;
-
-        $usuarios = usuarios::where('usuario', '=', $usuario)->where('senha', '=', $senha)->first();
+        
+        $usuarios = usuario::where('usuario', '=', $usuario)->where('senha', '=', $senha)->first();
 
         if (@$usuarios->id != null) {
             @session_start();
@@ -22,7 +22,7 @@ class UsersController extends Controller
             $_SESSION['cpf_usuario'] = $usuarios->cpf;
 
             if ($_SESSION['nivel_usuario'] == 'admin') {
-                return redirect()->route('admin.index');
+                return redirect()->route('painel-adv.audiencias.index');
             }
             if ($_SESSION['nivel_usuario'] == 'advogado') {
                 return view('painel-sindico.index');
@@ -31,7 +31,7 @@ class UsersController extends Controller
                 return view('painel-user.index');
             }
         } else {
-            echo "<script language='javascript'> window.alert('Dados Incorretos!') </script>";
+            echo "<script language='javascript'> window.alert('Dados sadasdasd!') </script>";
             return view('index');
         }
     }

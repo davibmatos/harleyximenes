@@ -1,136 +1,97 @@
 @extends('templates.painel-adm')
-@section('title', 'Inserir Inquilinos')
+@section('title', 'Inserir Clientes')
 @section('content')
-    <h6 class="mb-4"><i>CADASTRO DE CLIENTES</i></h6>
-    <hr>
-    <form method="POST" action="{{ route('clientes.insert') }}">
-        @csrf
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="edificio" name="edificio" required>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="matricula">CPF</label>
-                    <input type="text" class="form-control" id="matricula" name="matricula" required>
-                </div>
-            </div>
-        </div>
+    <div class="container">
+        <h6 class="mb-4"><i>CADASTRO DE CLIENTES</i></h6>
+        <hr>
+        <form method="POST" action="{{ route('clientes.insert') }}">
+            @csrf
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="endereco">Telefone</label>
-                    <input type="text" class="form-control" id="endereco" name="endereco">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="numero">Telefone2</label>
-                    <input type="text" class="form-control" id="numero" name="numero">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="bairro">Email</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro">
-                </div>
-            </div>
-        </div>
-        <div id="apartamentos">
+            <!-- Inquilino fields -->
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="numero">Número do Apto</label>
-                        <input type="text" class="form-control" id="numero" name="apartamentos[0][numero]">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control" id="cpf" name="cpf">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="telefone">Telefone2</label>
+                        <input type="text" class="form-control" id="telefone2" name="telefone2">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="funcao">Função</label>
+                        <input type="text" class="form-control" id="funcao" name="funcao">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="valor">Valor R$</label>
-                        <input type="text" class="form-control money" id="valor" name="apartamentos[0][valor]">
+                        <label for="salario">Salário</label>
+                        <input type="text" class="form-control" id="salario" name="salario">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="empresa">CNPJ da Empresa</label>
+                        <input type="text" class="form-control" id="empresa" name="empresa">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="nomeEmpresa">Nome da Empresa</label>
+                        <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" readonly>
                     </div>
                 </div>
             </div>
-        </div>
+            <button type="button" class="btn btn-primary add-cnpj">+</button><br><br>
+            
 
-        <button type="button" class="btn btn-secondary" id="adicionarApartamento">Adicionar Apartamento</button>
-
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Salvar</button>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <p align="left">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </p>
+                </div>
             </div>
-        </div>
-    </form>
-
-<script>
-    function aplicarMascara() {
-        $('.money').maskMoney({
-            prefix: 'R$ ',
-            thousands: '.',
-            decimal: ',',
-            allowZero: true,
-            allowNegative: false
+        </form>
+    </div>
+@endsection
+@section('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+    <script src="{{ asset('js/contratos.js') }}" defer></script>
+    <script src="{{ asset('js/mascaras.js') }}" defer></script>
+    <script src="{{ asset('js/empresas.js') }}" defer></script>
+    <script>
+        $(document).ready(function() {
+            aplicarMascaras();
         });
-    }
-
-    $(document).ready(function() {
-        aplicarMascara();
-    });
-    let contadorApartamentos = 1;
-
-    document.getElementById('adicionarApartamento').addEventListener('click', function() {
-        const divRow = document.createElement('div');
-        divRow.classList.add('row');
-
-        const colNumero = document.createElement('div');
-        colNumero.classList.add('col-md-4');
-
-        const colValor = document.createElement('div');
-        colValor.classList.add('col-md-2');
-
-        const formGroupNumero = document.createElement('div');
-        formGroupNumero.classList.add('form-group');
-
-        const formGroupValor = document.createElement('div');
-        formGroupValor.classList.add('form-group');
-
-        const labelNumero = document.createElement('label');
-        labelNumero.textContent = 'Número';
-
-        const labelValor = document.createElement('label');
-        labelValor.textContent = 'Valor R$';
-
-        const inputNumero = document.createElement('input');
-        inputNumero.type = 'text';
-        inputNumero.name = `apartamentos[${contadorApartamentos}][numero]`;
-        inputNumero.classList.add('form-control');
-
-        const inputValor = document.createElement('input');
-        inputValor.type = 'text';
-        inputValor.name = `apartamentos[${contadorApartamentos}][valor]`;
-        inputValor.classList.add('form-control', 'money');
-
-        formGroupNumero.appendChild(labelNumero);
-        formGroupNumero.appendChild(inputNumero);
-
-        formGroupValor.appendChild(labelValor);
-        formGroupValor.appendChild(inputValor);
-
-        colNumero.appendChild(formGroupNumero);
-        colValor.appendChild(formGroupValor);
-
-        divRow.appendChild(colNumero);
-        divRow.appendChild(colValor);
-
-        document.getElementById('apartamentos').appendChild(divRow);
-        aplicarMascara();
-
-        contadorApartamentos++;
-    });
-</script>
+    </script>
 @endsection

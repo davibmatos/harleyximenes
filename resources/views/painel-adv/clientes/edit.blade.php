@@ -1,35 +1,35 @@
 @extends('templates.painel-adm')
-@section('title', 'Editar Inquilinos')
+@section('title', 'Editar Clientes')
 @section('content')
 <h6 class="mb-4"><i>EDIÇÃO DE CLIENTES</i></h6><hr>
-<form method="POST" action="{{route('imoveis.editar', $item)}}">
+<form method="POST" action="{{route('clientes.editar', $item)}}">
     @csrf
     @method('put')
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="edificio">Nome</label>
-                <input value="{{$item->edificio}}" type="text" class="form-control" id="edificio" name="edificio" required>
+                <label for="nome">Nome</label>
+                <input value="{{$item->nome}}" type="text" class="form-control" id="nome" name="nome" required>
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="matricula">CPF</label>
-                <input value="{{$item->matricula}}" type="text" class="form-control" id="matricula" name="matricula">
+                <label for="cpf">CPF</label>
+                <input value="{{$item->cpf}}" type="text" class="form-control" id="cpf" name="cpf">
             </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="endereco">Telefone</label>
-                <input value="{{$item->endereco}}" type="text" class="form-control" id="endereco" name="endereco">
+                <label for="telefone">Telefone</label>
+                <input value="{{$item->telefone}}" type="text" class="form-control" id="telefone" name="telefone">
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <label for="numero">Telefone 2</label>
-                <input value="{{$item->numero}}" type="text" class="form-control" id="numero" name="numero">
+                <label for="telefone2">Telefone 2</label>
+                <input value="{{$item->telefone2}}" type="text" class="form-control" id="telefone2" name="telefone2">
             </div>
         </div>
         <div class="col-md-4">
