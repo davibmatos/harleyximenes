@@ -73,4 +73,11 @@ class ClientesController extends Controller
             return response()->json(['error' => 'Empresa não encontrada'], 404);
         }
     }
+
+    public function searchByCpf(Request $request)
+    {
+        $cpf = $request->get('cpf');
+        $cliente = Cliente::where('cpf', $cpf)->first();
+        return response()->json($cliente);
+    }
 }

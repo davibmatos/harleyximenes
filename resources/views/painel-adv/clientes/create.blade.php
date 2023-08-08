@@ -24,8 +24,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input type="text" class="form-control" id="cpf" name="cpf">
+                        <label for="cpf">CPF/CNPJ</label>
+                        <input type="text" class="form-control" id="campoCpfCnpj" name="cpf">
                     </div>
                 </div>
             </div>
@@ -58,8 +58,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="empresa">CNPJ da Empresa</label>
-                        <input type="text" class="form-control" id="empresa" name="empresa">
+                        <label for="empresa">CPF/CNPJ da Parte ré</label>
+                        <input type="text" class="form-control" id="campoCpfCnpj" name="cnpj">
                     </div>
                 </div>
                 <div class="col-md-6">

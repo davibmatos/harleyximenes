@@ -8,6 +8,7 @@ use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\ProcessosController;
 use App\Http\Controllers\PrazosController;
+use App\Http\Controllers\VarasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::put('processos/{item}', [ProcessosController::class, 'editar'])->name('pr
 Route::get('processos/{item}/edit}', [ProcessosController::class, 'edit'])->name('processos.edit');
 Route::get('processos/{item}/delete}', [ProcessosController::class, 'modal'])->name('processos.modal');
 Route::delete('processos/{item}', [ProcessosController::class, 'delete'])->name('processos.delete');
+Route::get('/clientes/search', [ClientesController::class, 'searchByCpf'])->name('clientes.searchByCpf');
+Route::get('/empresas/search', [EmpresasController::class, 'searchByCnpj'])->name('empresas.searchByCnpj');
+Route::get('/get-varas', [ProcessosController::class, 'getVaras']);
+Route::delete('processos/{processo}/anexos/{anexo}', 'ProcessosController@deleteAnexo');
 
 
 //ROTAS PARA CLIENTES

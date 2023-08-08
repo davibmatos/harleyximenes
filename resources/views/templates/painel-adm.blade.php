@@ -17,6 +17,7 @@ $usuario = usuario::find($id_usuario);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Davi Matos">
+    <meta name="csrf-token" content="{{ csrf_token() }}">t
 
     <title>@yield('title')</title>
 

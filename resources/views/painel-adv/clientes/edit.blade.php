@@ -35,7 +35,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="bairro">Email</label>
-                <input value="{{$item->bairro}}" type="text" class="form-control" id="bairro" name="bairro">
+                <input value="{{$item->email}}" type="text" class="form-control" id="bairro" name="bairro">
             </div>
         </div>
     </div>

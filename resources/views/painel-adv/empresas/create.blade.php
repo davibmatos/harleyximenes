@@ -10,25 +10,25 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="edificio" name="nome" required>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="matricula">CNPJ</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+                    <label for="matricula">CNPJ/CPF</label>
+                    <input type="text" class="form-control" id="campoCpfCnpj" name="cnpj" required>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="matricula">Telefone</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+                    <input type="text" class="form-control" id="telefone" name="telefone" required>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="matricula">Telefone 2</label>
-                    <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+                    <input type="text" class="form-control" id="telefone2" name="telefone2" required>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                     <label for="endereco">Email</label>
                     <input type="text" class="form-control" id="email" name="email">
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-12">
@@ -47,6 +47,10 @@
             </div>
         </div>
     </form>
-
-<script>
+    <script src="{{ asset('js/mascaras.js') }}" defer></script>
+    <script>
+        $(document).ready(function() {
+            aplicarMascaras();
+        });
+    </script>
 @endsection

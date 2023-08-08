@@ -17,4 +17,9 @@ class Processo extends Model
         'cliente_id',
         'comarca_id',
     ];
+
+    public function anexos()
+    {
+        return $this->hasMany(Anexo::class);
+    }
 }

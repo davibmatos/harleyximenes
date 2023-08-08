@@ -65,4 +65,11 @@ class EmpresasController extends Controller
 
         return response()->json($empresas);
     }
+
+    public function searchByCnpj(Request $request)
+    {
+        $cnpj = $request->get('cnpj');
+        $empresa = Empresa::where('cnpj', $cnpj)->first();
+        return response()->json($empresa);
+    }
 }
