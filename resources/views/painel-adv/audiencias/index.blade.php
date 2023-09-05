@@ -42,16 +42,16 @@ if(!isset($id)){
       <tbody>
       @foreach($itens as $item)
          <tr>
-          <td>{{$item->processo->numero}}</td>
-            <td>{{$item->cliente->nome}}</td>
-            <td>{{$item->empresa->nome}}</td>            
-            <td>{{$item->vara->numero}}</td>
-            <td>{{$item->comarca->nome}}</td>
-            <td>{{$item->audiencia->data}}</td>
-            <td>{{$item->audiencia->hora}}</td>          
+          <td>{{$item->numero}}</td>
+            <td>{{@$item->cliente->nome}}</td>
+            <td>{{@$item->empresa->nome}}</td>            
+            <td>{{@$item->vara->numero}}</td>
+            <td>{{@$item->comarca->nome}}</td>
+            <td>{{@$item->data_aud}}</td>
+            <td>{{@$item->hora_aud}}</td>          
             <td>            
-            <a href="{{route('audiencias.edit', $item)}}"><i class="fas fa-edit text-info mr-1"></i></a>
-            <a href="{{route('audiencias.modal', $item)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
+            <a href="{{route('processos.edit', $item)}}"><i class="fas fa-edit text-info mr-1"></i></a>
+            <a href="{{route('processos.modal', $item)}}"><i class="fas fa-trash text-danger mr-1"></i></a>
             </td>
         </tr>
         @endforeach 
@@ -92,7 +92,7 @@ if(!isset($id)){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <form method="POST" action="{{route('audiencias.delete', $id)}}">
+        <form method="POST" action="{{route('processos.delete', $id)}}">
           @csrf
           @method('delete')
           <button type="submit" class="btn btn-danger">Excluir</button>

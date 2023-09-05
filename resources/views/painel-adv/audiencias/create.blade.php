@@ -9,13 +9,13 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="nome">Número do Processo</label>
-                    <input type="text" class="form-control" id="processo_id" name="processo_id" required>
+                    <label for="numero">Número do Processo</label>
+                    <input type="text" class="form-control" id="numero" name="numero" required>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="matricula">Cliente</label>
+                    <label for="cliente">Cliente</label>
                     <input type="text" class="form-control" id="cliente" name="cliente" required readonly>
                 </div>
             </div>
@@ -24,16 +24,22 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="endereco">Data Audiência</label>
-                    <input type="text" class="form-control" id="data_aud" name="data_aud">
+                    <label for="data_aud">Data Audiência</label>
+                    <input value="{{ old('data_aud') }}" type="date" class="form-control" id="data_aud" name="data_aud" required>
                 </div>
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    <label for="numero">Hora Audiência</label>
-                    <input type="text" class="form-control" id="hora_aud" name="hora_aud">
+                    <label for="hora_aud">Hora Audiência</label>
+                    <input value="{{ old('hora_aud') }}" type="time" class="form-control" id="hora_aud" name="hora_aud" required>
                 </div>
-            </div>            
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="tipo_aud">Tipo de Audiência</label>
+                    <input value="{{ old('tipo_aud') }}" type="text" class="form-control" id="tipo_aud" name="tipo_aud" required>
+                </div>
+            </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-12">
@@ -41,8 +47,25 @@
             </div>
         </div>
     </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        var getClienteUrl = "{{ route('audiencias.getCliente') }}";
+        $(document).ready(function() {
+            $('#numero').on('blur', function() {
+                var numeroProcesso = $(this).val();
+                $.ajax({
+                    url: '{{ route('processos.getCliente') }}',
+                    type: 'get',
+                    data: {
+                        numero_processo: numeroProcesso
+                    },
+                    success: function(response) {
+                        $('#cliente').val(response.nome);
+                    },
+                    error: function() {
+                        $('#cliente').val('');
+                    }
+                });
+            });
+        });
     </script>
-    <script src="{{ asset('js/buscarclientes.js') }}" defer></script>
 @endsection

@@ -68,41 +68,84 @@ $usuario = usuario::find($id_usuario);
             <hr class="sidebar-divider my-0">
 
 
-            <!-- Cadastros Dropdown -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros"
-                    aria-expanded="true" aria-controls="collapseCadastros">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Cadastros</span>
-                </a>
-                <div id="collapseCadastros" class="collapse" aria-labelledby="headingCadastros"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('clientes.index') }}">Clientes</a>
-                        <a class="collapse-item" href="{{ route('empresas.index') }}">Empresas</a>
-                        <a class="collapse-item" href="{{ route('processos.index') }}">Processos</a>
-                        <a class="collapse-item" href="{{ route('audiencias.index') }}">Audiências</a>
-                        <a class="collapse-item" href="{{ route('prazos.index') }}">Prazos</a>
-                    </div>
-                </div>
-            </li>
+           <!-- Cadastros Dropdown -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros"
+        aria-expanded="true" aria-controls="collapseCadastros">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Cadastros</span>
+    </a>
+    <div id="collapseCadastros" class="collapse" aria-labelledby="headingCadastros"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('varas.index') }}">Varas</a>
+            <a class="collapse-item" href="{{ route('comarcas.index') }}">Comarcas</a>
+            <a class="collapse-item" href="{{ route('clientes.index') }}">Clientes</a>
+            <a class="collapse-item" href="{{ route('empresas.index') }}">Empresas</a>
+        </div>
+    </div>
+</li>
+
+<!-- Painel do Escritório -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEscritorio"
+        aria-expanded="true" aria-controls="collapseEscritorio">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Painel do Escritório</span>
+    </a>
+    <div id="collapseEscritorio" class="collapse" aria-labelledby="headingEscritorio"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('processos.index') }}">Processos Gerais</a>
+            <a class="collapse-item" href="{{ route('audiencias.index') }}">Audiências Geral</a>
+        </div>
+    </div>
+</li>
+
+<!-- Painel do Advogado -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdvogado"
+        aria-expanded="true" aria-controls="collapseAdvogado">
+        <i class="fas fa-fw fa-folder"></i>
+        <span>Painel do Advogado</span>
+    </a>
+    <div id="collapseAdvogado" class="collapse" aria-labelledby="headingAdvogado"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('processos.index') }}">Meus Processos</a>
+            <a class="collapse-item" href="{{ route('audiencias.index') }}">Minhas Audiências</a>
+            <a class="collapse-item" href="{{ route('audiencias.index') }}">Meus Prazos</a>
+        </div>
+    </div>
+</li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Contratos -->
+            {{-- <!-- Contratos -->
             @if ($usuario->nivel == 'admin')
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('varas.index') }}">
+                    <a class="nav-link" href="{{ route('processos.index') }}">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Varas</span></a>
+                        <span>Meus Processos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('varas.index') }}">
+                    <a class="nav-link" href="{{ route('prazos.index') }}">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Comarcas</span></a>
+                        <span>Meus Prazos</span></a>
                 </li>
-            @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('audiencias.index') }}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Minhas Audiências</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('audiencias.index') }}">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Audiências Geral</span></a>
+                </li>
+            @endif --}}
 
             {{-- <!-- Painel Financeiro -->
             @if ($usuario->nivel == 'admin')

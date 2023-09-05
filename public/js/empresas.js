@@ -1,15 +1,17 @@
-$(document).ready(function(){
-    $('#empresa').change(function(){
+$(document).ready(function () {
+    $('#empresa').change(function () {
         var cnpj = $(this).val();
         $.ajax({
             url: '/getEmpresa',
             type: 'get',
-            data: {cnpj: cnpj},
-            success: function(response){
+            data: {
+                cnpj: cnpj
+            },
+            success: function (response) {
                 // Preenche o campo do nome da empresa com a resposta
                 $('#nomeEmpresa').val(response.nome);
             },
-            error: function(response) {
+            error: function (response) {
                 // Limpa o campo do nome da empresa se houver um erro
                 $('#nomeEmpresa').val('');
                 alert('Empresa não encontrada');
@@ -18,7 +20,7 @@ $(document).ready(function(){
     });
 
     var count = 1;
-    $('.add-cnpj').click(function() {
+    $('.add-cnpj').click(function () {
         count++;
         var newField = $(`
             <div id="cnpjField${count}">
@@ -36,17 +38,20 @@ $(document).ready(function(){
     });
 
     // Use event delegation para manipular eventos de elementos que ainda não foram criados
-    $('form').on('change', '.cnpj-field', function() {
-        var idNum = this.id.replace(/\D/g,'');
+    $('form').on('change', '.cnpj-field', function () {
+        var idNum = this.id.replace(/\D/g, '');
         var cnpj = $(this).val();
         $.ajax({
             url: '/getEmpresa',
             type: 'get',
-            data: {cnpj: cnpj},
-            success: function(response){
-                $('#nomeEmpresa' + idNum).val(response.nome);
+            data: {
+                cnpj: cnpj
             },
-            error: function(response) {
+            success: function (response) {
+                $('#nomeEmpresa' + idNum).val(response.nome);
+                $('#empresaIdHidden' + idNum).val(response.id);
+            },
+            error: function (response) {
                 $('#nomeEmpresa' + idNum).val('');
                 alert('Empresa não encontrada');
             }

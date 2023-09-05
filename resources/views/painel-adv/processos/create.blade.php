@@ -35,14 +35,15 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nome_autor">Parte autora</label>
-                            <input type="text" class="form-control" id="nome_autor" name="nome_autor" required>
-
+                            <input type="text" class="form-control" id="nome_autor" name="nome_cliente" required>
+                            <input type="hidden" id="clienteIdHidden" name="cliente_id">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nome_re">Parte ré</label>
-                            <input type="text" class="form-control" id="nome_re" name="nome_re" required>
+                            <input type="text" class="form-control" id="nome_re" name="nome_empresa" required>
+                            <input type="hidden" id="empresaIdHidden" name="empresa_id">
                         </div>
                     </div>
                 </div>
@@ -53,9 +54,7 @@
                             <input type="text" class="form-control" id="numero" name="numero" required>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="comarca">Comarca</label>
                             <select class="form-control" id="comarca" name="comarca_id">
@@ -69,11 +68,12 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="vara">Vara</label>
-                            <select class="form-control" id="vara" name="vara_id">
-                                <!-- Vamos usar AJAX para preencher isso com base na Comarca selecionada. -->
+                            <select class="form-control" id="vara" name="vara_id">                              
                             </select>
                         </div>
                     </div>
+                </div>
+                <div class="row">                    
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="numero">Data da audiência</label>
@@ -86,7 +86,13 @@
                             <input type="time" class="form-control" id="hora_aud" name="hora_aud">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="hora_aud">Tipo de audiência</label>
+                            <input type="text" class="form-control" id="tipo_aud" name="tipo_aud">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="anexo">Anexo (PDF)</label>
                             <input type="file" class="form-control-file" id="anexo" name="anexos[]" accept=".pdf"

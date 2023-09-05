@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anexo;
+use App\Models\Comarca;
 use App\Models\Processo;
-use App\Models\Comarcas;
-use App\Models\Varas;
+use App\Models\Vara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,13 +13,23 @@ class ProcessosController extends Controller
 {
     public function index()
     {
-        $itens = Processo::orderBy('id', 'desc')->paginate();
+        $itens = Processo::with(['cliente', 'empresa', 'vara', 'comarca'])->orderBy('id', 'desc')->paginate();
+
         return view('painel-adv.processos.index', ['itens' => $itens]);
+    }
+
+    public function audiencias()
+    {
+        $itens = Processo::with(['cliente', 'empresa', 'vara', 'comarca'])
+            ->orderBy('data_aud', 'desc')
+            ->paginate();
+
+        return view('painel-adv.audiencias.index', ['itens' => $itens]);
     }
 
     public function create()
     {
-        $comarcas = Comarcas::all();
+        $comarcas = Comarca::all();
         return view('painel-adv.processos.create', compact('comarcas'));
     }
 
@@ -33,11 +43,14 @@ class ProcessosController extends Controller
 
         $tabela = new Processo();
         $tabela->numero = $request->numero;
-        $tabela->usuario_id = $request->usuario_id;
+        $tabela->usuario_id = auth()->id();
         $tabela->vara_id = $request->vara_id;
-        $tabela->empresa_id = $request->empresa_id;
         $tabela->cliente_id = $request->cliente_id;
+        $tabela->empresa_id = $request->empresa_id;
         $tabela->comarca_id = $request->comarca_id;
+        $tabela->data_aud = $request->data_aud;
+        $tabela->hora_aud = $request->hora_aud;
+        $tabela->tipo_aud = $request->tipo_aud;
 
         if ($request->hasFile('anexos')) {
             foreach ($request->file('anexos') as $file) {
@@ -52,13 +65,17 @@ class ProcessosController extends Controller
             }
         }
 
+
+
         $tabela->save();
         return redirect()->route('processos.index');
     }
 
     public function edit(Processo $item)
     {
-        return view('painel-adv.processos.edit', ['item' => $item]);
+        $comarcas = Comarca::all();
+        $varas = Vara::all();
+        return view('painel-adv.processos.edit', ['item' => $item], compact('comarcas', 'varas'));
     }
 
     public function update(Request $request, Processo $item)
@@ -69,6 +86,9 @@ class ProcessosController extends Controller
         $item->empresa_id = $request->empresa_id;
         $item->cliente_id = $request->cliente_id;
         $item->comarca_id = $request->comarca_id;
+        $item->data_aud = $request->data_aud;
+        $item->hora_aud = $request->hora_aud;
+        $item->tipo_aud = $request->tipo_aud;
 
         if ($request->hasFile('anexos')) {
             foreach ($request->file('anexos') as $anexo) {
@@ -95,7 +115,9 @@ class ProcessosController extends Controller
 
     public function getCliente(Request $request)
     {
-        $processo = Processo::find($request->processo_id);
+        $numeroProcesso = $request->input('numero_processo');
+        $processo = Processo::where('numero', $numeroProcesso)->first();
+
         if ($processo) {
             return response()->json(['nome' => $processo->cliente->nome]);
         } else {
@@ -106,7 +128,7 @@ class ProcessosController extends Controller
     public function getVaras(Request $request)
     {
         $comarcaId = $request->get('comarca_id');
-        $varas = Varas::where('comarca_id', $comarcaId)->get();
+        $varas = Vara::where('comarca_id', $comarcaId)->get();
         if ($varas->isEmpty()) {
             return response()->json(['message' => 'Nenhuma vara encontrada'], 404);
         }

@@ -16,10 +16,34 @@ class Processo extends Model
         'empresa_id',
         'cliente_id',
         'comarca_id',
+        'data_aud',
+        'hora_aud',
+        'tipo_aud'
     ];
 
     public function anexos()
     {
         return $this->hasMany(Anexo::class);
     }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class); 
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class); 
+    }
+
+    public function vara()
+    {
+        return $this->belongsTo(Vara::class); 
+    }
+
+    public function comarca()
+    {
+        return $this->belongsTo(Comarca::class); 
+    }
+
 }
