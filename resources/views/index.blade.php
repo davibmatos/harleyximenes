@@ -201,6 +201,11 @@
             <img src="img/logo.jpg" alt="Logo"
                 style="width: 120px; display: block; margin-left: auto; margin-right: auto;">
             <h1>Login</h1>
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form method="post" action="{{ route('usuarios.login') }}">
                 @csrf
                 <input name="usuario" placeholder="Email" required="required" />

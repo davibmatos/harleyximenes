@@ -14,7 +14,7 @@ if(!isset($id)){
 ?>
 
 
-<a href="{{route('empresas.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Empresa</a>
+<a href="{{route('empresas.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Cadastro parte adversa</a>
 @if (session('error'))
     <div class="alert alert-danger mt-2">
       {{ session('error') }}

@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="funcao">Função</label>
+                        <label for="funcao">Profissão</label>
                         <input type="text" class="form-control" id="funcao" name="funcao">
                     </div>
                 </div>
@@ -58,18 +58,18 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="empresa">CPF/CNPJ da Parte ré</label>
-                        <input type="text" class="form-control" id="campoCpfCnpj" name="cnpj">
+                        <label for="empresa">Estado Civil</label>
+                        <input type="text" class="form-control" id="ecivil" name="ecivil">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nomeEmpresa">Nome da Empresa</label>
-                        <input type="text" class="form-control" id="nomeEmpresa" name="nomeEmpresa" readonly>
+                        <label for="nomeEmpresa">Endereço</label>
+                        <input type="text" class="form-control" id="endereco" name="endereco">
                     </div>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary add-cnpj">+</button><br><br>
+            {{-- <button type="button" class="btn btn-primary add-cnpj">+</button><br><br> --}}
             
 
             <div class="row">

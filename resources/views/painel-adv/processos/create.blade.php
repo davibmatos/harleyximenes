@@ -16,6 +16,7 @@
             <hr>
             <form method="POST" action="{{ route('processos.insert') }}" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="usuario_id" value="{{ Session::get('id_usuario') }}">
 
                 <div class="row">
                     <div class="col-md-3">
@@ -69,6 +70,17 @@
                         <div class="form-group">
                             <label for="vara">Vara</label>
                             <select class="form-control" id="vara" name="vara_id">                              
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="advogado">Advogado Responsável</label>
+                            <select class="form-control" id="advogado" name="adv_id">
+                                <option value="" selected>Adv Responsável</option>
+                                @foreach ($advogados as $advogado)
+                                    <option value="{{ $advogado->id }}">{{ $advogado->nome }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

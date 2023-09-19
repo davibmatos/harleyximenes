@@ -17,7 +17,7 @@ $usuario = usuario::find($id_usuario);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Davi Matos">
-    <meta name="csrf-token" content="{{ csrf_token() }}">t
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
 
@@ -59,7 +59,7 @@ $usuario = usuario::find($id_usuario);
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.index') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('painel-adv.prazos.index') }}">
 
                 <div class="sidebar-brand-text mx-3">Administrador</div>
             </a>
@@ -67,57 +67,53 @@ $usuario = usuario::find($id_usuario);
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Cliente -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('clientes.index') }}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Cadastros de Clientes</span>
+                </a>
+            </li>
 
-           <!-- Cadastros Dropdown -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCadastros"
-        aria-expanded="true" aria-controls="collapseCadastros">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Cadastros</span>
-    </a>
-    <div id="collapseCadastros" class="collapse" aria-labelledby="headingCadastros"
-        data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('varas.index') }}">Varas</a>
-            <a class="collapse-item" href="{{ route('comarcas.index') }}">Comarcas</a>
-            <a class="collapse-item" href="{{ route('clientes.index') }}">Clientes</a>
-            <a class="collapse-item" href="{{ route('empresas.index') }}">Empresas</a>
-        </div>
-    </div>
-</li>
+            <!-- Empresas -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('empresas.index') }}">
+                    <i class="fas fa-fw fa-building"></i>
+                    <span>Cadastro de Parte Adversa</span>
+                </a>
+            </li>            
+            <!-- Painel do Escritório -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEscritorio"
+                    aria-expanded="true" aria-controls="collapseEscritorio">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Painel do Escritório</span>
+                </a>
+                <div id="collapseEscritorio" class="collapse" aria-labelledby="headingEscritorio"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('processos.index') }}">Processos Gerais</a>
+                        <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'escritorio']) }}">Audiências Geral</a>
+                    </div>
+                </div>
+            </li>
 
-<!-- Painel do Escritório -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEscritorio"
-        aria-expanded="true" aria-controls="collapseEscritorio">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Painel do Escritório</span>
-    </a>
-    <div id="collapseEscritorio" class="collapse" aria-labelledby="headingEscritorio"
-        data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('processos.index') }}">Processos Gerais</a>
-            <a class="collapse-item" href="{{ route('audiencias.index') }}">Audiências Geral</a>
-        </div>
-    </div>
-</li>
-
-<!-- Painel do Advogado -->
-<li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdvogado"
-        aria-expanded="true" aria-controls="collapseAdvogado">
-        <i class="fas fa-fw fa-folder"></i>
-        <span>Painel do Advogado</span>
-    </a>
-    <div id="collapseAdvogado" class="collapse" aria-labelledby="headingAdvogado"
-        data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('processos.index') }}">Meus Processos</a>
-            <a class="collapse-item" href="{{ route('audiencias.index') }}">Minhas Audiências</a>
-            <a class="collapse-item" href="{{ route('audiencias.index') }}">Meus Prazos</a>
-        </div>
-    </div>
-</li>
+            <!-- Painel do Advogado -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdvogado"
+                    aria-expanded="true" aria-controls="collapseAdvogado">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Painel do Advogado</span>
+                </a>
+                <div id="collapseAdvogado" class="collapse" aria-labelledby="headingAdvogado"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('processos.index') }}">Meus Processos</a>
+                        <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'advogado']) }}">Minhas Audiências</a>
+                        <a class="collapse-item" href="{{ route('painel-adv.prazos.index') }}">Meus Prazos</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -199,7 +195,8 @@ $usuario = usuario::find($id_usuario);
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#ModalPerfil">
+                                <a class="dropdown-item" href="" data-toggle="modal"
+                                    data-target="#ModalPerfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-primary"></i>
                                     Editar Perfil
                                 </a>

@@ -10,11 +10,19 @@ use Illuminate\Http\Request;
 
 class AudienciasController extends Controller
 {
-    public function index()
+    public function index($fonte = null)
     {
-        $itens = Processo::orderBy('data_aud', 'desc')->paginate();
+        $usuarioId = auth()->id();
+
+        if ($fonte === 'advogado') {
+            $itens = Processo::where('usuario_id', $usuarioId)->orderBy('data_aud', 'desc')->paginate();
+        } else {
+            $itens = Processo::orderBy('data_aud', 'desc')->paginate();
+        }
+
         return view('painel-adv.audiencias.index', ['itens' => $itens]);
     }
+
 
     public function create()
     {
@@ -22,33 +30,33 @@ class AudienciasController extends Controller
     }
 
     public function insert(Request $request)
-{
-    $numeroProcesso = $request->numero_processo;
-    $dataAud = $request->data_aud;
-    $horaAud = $request->hora_aud;
-    $tipoAud = $request->tipo_aud;
-    $usuarioId = auth()->id(); // Obtém o ID do usuário logado
+    {
+        $numeroProcesso = $request->numero_processo;
+        $dataAud = $request->data_aud;
+        $horaAud = $request->hora_aud;
+        $tipoAud = $request->tipo_aud;
+        $usuarioId = auth()->id(); // Obtém o ID do usuário logado
 
-    $processoExistente = Processo::where('numero', $numeroProcesso)->first();
-    dd($processoExistente);
+        $processoExistente = Processo::where('numero', $numeroProcesso)->first();
+        dd($processoExistente);
 
-    if ($processoExistente) {
-        $processoExistente->data_aud = $dataAud;
-        $processoExistente->hora_aud = $horaAud;
-        $processoExistente->tipo_aud = $tipoAud;
-        $processoExistente->save();
-    } else {
-        $novoProcesso = new Processo();
-        $novoProcesso->numero = $numeroProcesso;
-        $novoProcesso->usuario_id = $usuarioId;
-        $novoProcesso->data_aud = $dataAud;
-        $novoProcesso->hora_aud = $horaAud;
-        $novoProcesso->tipo_aud = $tipoAud;
-        $novoProcesso->save();
+        if ($processoExistente) {
+            $processoExistente->data_aud = $dataAud;
+            $processoExistente->hora_aud = $horaAud;
+            $processoExistente->tipo_aud = $tipoAud;
+            $processoExistente->save();
+        } else {
+            $novoProcesso = new Processo();
+            $novoProcesso->numero = $numeroProcesso;
+            $novoProcesso->usuario_id = $usuarioId;
+            $novoProcesso->data_aud = $dataAud;
+            $novoProcesso->hora_aud = $horaAud;
+            $novoProcesso->tipo_aud = $tipoAud;
+            $novoProcesso->save();
+        }
+
+        return redirect()->route('audiencias.index'); // Redireciona para a lista de audiências
     }
-
-    return redirect()->route('audiencias.index'); // Redireciona para a lista de audiências
-}
 
 
     public function edit(Audiencia $item)

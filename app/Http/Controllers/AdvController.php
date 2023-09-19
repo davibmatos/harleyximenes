@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\advogados;
+use App\Models\usuario;
 use App\Models\usuarios;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class AdvController extends Controller
         $tabela->credencial = $request->credencial;
         $tabela->data = $request->data;
 
-        $tabela2 = new usuarios();
+        $tabela2 = new usuario();
         $tabela2->nome = $request->nome;
         $tabela2->email = $request->email;
         $tabela2->cpf = $request->cpf;

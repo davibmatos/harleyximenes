@@ -26,6 +26,8 @@ class EmpresasController extends Controller
         $tabela->telefone = $request->telefone;
         $tabela->telefone2 = $request->telefone2;
         $tabela->email = $request->email;
+        $tabela->endereco = $request->endereco;
+        $tabela->preposto = $request->preposto;
         $tabela->save();
         return redirect()->route('empresas.index');
     }

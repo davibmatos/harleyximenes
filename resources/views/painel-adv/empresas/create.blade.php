@@ -1,36 +1,44 @@
 @extends('templates.painel-adm')
 @section('title', 'Inserir Inquilinos')
 @section('content')
-    <h6 class="mb-4"><i>CADASTRO DE EMPRESAS</i></h6>
+    <h6 class="mb-4"><i>CADASTRO DE PARTE ADVERSA</i></h6>
     <hr>
     <form method="POST" action="{{ route('empresas.insert') }}">
         @csrf
 
-        <div class="row">
+        <div class="row">            
             <div class="col-md-4">
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
-                </div>
-            </div>
-            <div class="col-md-2">
                 <div class="form-group">
                     <label for="matricula">CNPJ/CPF</label>
                     <input type="text" class="form-control" id="campoCpfCnpj" name="cnpj" required>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+            </div>           
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="matricula">Telefone</label>
                     <input type="text" class="form-control" id="telefone" name="telefone" required>
                 </div>
+            </div>            
+        </div>
+        <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="endereco">Responsável</label>
+                <input type="text" class="form-control" id="preposto" name="preposto">
             </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="matricula">Telefone 2</label>
-                    <input type="text" class="form-control" id="telefone2" name="telefone2" required>
-                </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="matricula">Telefone Responsável</label>
+                <input type="text" class="form-control" id="telefone2" name="telefone2" required>
             </div>
+        </div>
         </div>
 
         <div class="row">
@@ -40,6 +48,12 @@
                     <input type="text" class="form-control" id="email" name="email">
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="endereco">Endereço</label>
+                    <input type="text" class="form-control" id="endereco" name="endereco">
+                </div>
+            </div>            
         </div>
         <div class="row mt-3">
             <div class="col-md-12">

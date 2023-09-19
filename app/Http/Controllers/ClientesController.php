@@ -29,6 +29,8 @@ class ClientesController extends Controller
         $tabela->funcao = $request->funcao;
         $tabela->email = $request->email;
         $tabela->salario = $request->salario;
+        $tabela->endereco = $request->endereco;
+        $tabela->ecivil = $request->ecivil;
         $tabela->save();
         return redirect()->route('clientes.index');
     }

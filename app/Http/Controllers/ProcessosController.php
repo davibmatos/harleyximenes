@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Anexo;
 use App\Models\Comarca;
 use App\Models\Processo;
+use App\Models\usuario;
 use App\Models\Vara;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class ProcessosController extends Controller
 {
     public function index()
     {
-        $itens = Processo::with(['cliente', 'empresa', 'vara', 'comarca'])->orderBy('id', 'desc')->paginate();
+        $itens = Processo::with(['cliente', 'empresa', 'vara', 'comarca', 'usuario'])->orderBy('id', 'desc')->paginate();
 
         return view('painel-adv.processos.index', ['itens' => $itens]);
     }
@@ -30,11 +33,13 @@ class ProcessosController extends Controller
     public function create()
     {
         $comarcas = Comarca::all();
-        return view('painel-adv.processos.create', compact('comarcas'));
+        $advogados = usuario::all();
+        return view('painel-adv.processos.create', compact('comarcas', 'advogados'));
     }
 
     public function insert(Request $request)
     {
+
         $request->validate([
             'anexos.*' => 'max:10240'
         ], [
@@ -43,7 +48,7 @@ class ProcessosController extends Controller
 
         $tabela = new Processo();
         $tabela->numero = $request->numero;
-        $tabela->usuario_id = auth()->id();
+        $tabela->usuario_id = $request->usuario_id;
         $tabela->vara_id = $request->vara_id;
         $tabela->cliente_id = $request->cliente_id;
         $tabela->empresa_id = $request->empresa_id;
@@ -51,6 +56,10 @@ class ProcessosController extends Controller
         $tabela->data_aud = $request->data_aud;
         $tabela->hora_aud = $request->hora_aud;
         $tabela->tipo_aud = $request->tipo_aud;
+        $tabela->adv_id = $request->adv_id;
+        dd($tabela);
+
+        $tabela->save();
 
         if ($request->hasFile('anexos')) {
             foreach ($request->file('anexos') as $file) {
@@ -65,9 +74,6 @@ class ProcessosController extends Controller
             }
         }
 
-
-
-        $tabela->save();
         return redirect()->route('processos.index');
     }
 

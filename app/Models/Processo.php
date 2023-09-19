@@ -28,22 +28,26 @@ class Processo extends Model
 
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class); 
+        return $this->belongsTo(Cliente::class);
     }
 
     public function empresa()
     {
-        return $this->belongsTo(Empresa::class); 
+        return $this->belongsTo(Empresa::class);
     }
 
     public function vara()
     {
-        return $this->belongsTo(Vara::class); 
+        return $this->belongsTo(Vara::class);
     }
 
     public function comarca()
     {
-        return $this->belongsTo(Comarca::class); 
+        return $this->belongsTo(Comarca::class);
     }
 
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'adv_id');
+    }
 }

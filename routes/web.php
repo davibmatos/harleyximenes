@@ -24,11 +24,13 @@ use App\Http\Controllers\VarasController;
 // Route::get('/', HomeController::class)->name('home');
 
 Route::post('painel', [UsersController::class, 'login'])->name('usuarios.login');
+Route::get('login', [UsersController::class, 'showLoginForm'])->name('login');
 Route::get('/', [UsersController::class, 'logout'])->name('usuarios.logout');
 Route::get('home-admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('painel-adv/audiencias', [AudienciasController::class, 'index'])->name('painel-adv.audiencias.index');
 
 //ROTAS PARA AUDIÊNCIAS
+Route::get('audiencias/{fonte?}', [AudienciasController::class, 'index'])->name('audiencias.index');
 // Route::get('audiencias', [AudienciasController::class, 'index'])->name('audiencias.index');
 Route::post('audiencias', [AudienciasController::class, 'insert'])->name('audiencias.insert');
 Route::get('audiencias/inserir', [AudienciasController::class, 'create'])->name('audiencias.inserir');
@@ -46,22 +48,22 @@ Route::get('processos', [ProcessosController::class, 'index'])->name('processos.
 Route::post('processos', [ProcessosController::class, 'insert'])->name('processos.insert');
 Route::get('processos/inserir', [ProcessosController::class, 'create'])->name('processos.inserir');
 Route::put('processos/{item}', [ProcessosController::class, 'editar'])->name('processos.editar');
-Route::get('processos/{item}/edit}', [ProcessosController::class, 'edit'])->name('processos.edit');
-Route::get('processos/{item}/delete}', [ProcessosController::class, 'modal'])->name('processos.modal');
+Route::get('processos/{item}/edit', [ProcessosController::class, 'edit'])->name('processos.edit');
+Route::get('processos/{item}/delete', [ProcessosController::class, 'modal'])->name('processos.modal');
 Route::delete('processos/{item}', [ProcessosController::class, 'delete'])->name('processos.delete');
 Route::get('/clientes/search', [ClientesController::class, 'searchByCpf'])->name('clientes.searchByCpf');
 Route::get('/empresas/search', [EmpresasController::class, 'searchByCnpj'])->name('empresas.searchByCnpj');
 Route::get('/get-varas', [ProcessosController::class, 'getVaras']);
 Route::delete('processos/{processo}/anexos/{anexo}', 'ProcessosController@deleteAnexo');
-Route::get('audiencias', [ProcessosController::class, 'audiencias'])->name('audiencias.index');
+// Route::get('audiencias', [ProcessosController::class, 'audiencias'])->name('audiencias.index');
 
 //ROTAS PARA CLIENTES
 Route::get('clientes', [ClientesController::class, 'index'])->name('clientes.index');
 Route::post('clientes', [ClientesController::class, 'insert'])->name('clientes.insert');
 Route::get('clientes/inserir', [ClientesController::class, 'create'])->name('clientes.inserir');
 Route::put('clientes/{item}', [ClientesController::class, 'editar'])->name('clientes.editar');
-Route::get('clientes/{item}/edit}', [ClientesController::class, 'edit'])->name('clientes.edit');
-Route::get('clientes/{item}/delete}', [ClientesController::class, 'modal'])->name('clientes.modal');
+Route::get('clientes/{item}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
+Route::get('clientes/{item}/delete', [ClientesController::class, 'modal'])->name('clientes.modal');
 Route::delete('clientes/{item}', [ClientesController::class, 'delete'])->name('clientes.delete');
 
 //ROTAS PARA EMPRESAS
@@ -69,14 +71,16 @@ Route::get('empresas', [EmpresasController::class, 'index'])->name('empresas.ind
 Route::post('empresas', [EmpresasController::class, 'insert'])->name('empresas.insert');
 Route::get('empresas/inserir', [EmpresasController::class, 'create'])->name('empresas.inserir');
 Route::put('empresas/{item}', [EmpresasController::class, 'editar'])->name('empresas.editar');
-Route::get('empresas/{item}/edit}', [EmpresasController::class, 'edit'])->name('empresas.edit');
-Route::get('empresas/{item}/delete}', [EmpresasController::class, 'modal'])->name('empresas.modal');
+Route::get('empresas/{item}/edit', [EmpresasController::class, 'edit'])->name('empresas.edit');
+Route::get('empresas/{item}/delete', [EmpresasController::class, 'modal'])->name('empresas.modal');
 Route::delete('empresas/{item}', [EmpresasController::class, 'delete'])->name('empresas.delete');
 // Rota para busca de empresas por CNPJ
 Route::get('api/empresas', [EmpresasController::class, 'search'])->name('empresas.search');
 
 //ROTAS PARA PRAZOS
-Route::get('prazos', [PrazosController::class, 'index'])->name('prazos.index');
+
+Route::get('painel-adv/prazos', [PrazosController::class, 'index'])->name('painel-adv.prazos.index');
+
 Route::post('prazos', [PrazosController::class, 'insert'])->name('prazos.insert');
 Route::get('prazos/inserir', [PrazosController::class, 'create'])->name('prazos.inserir');
 Route::put('prazos/{item}', [PrazosController::class, 'editar'])->name('prazos.editar');
@@ -92,6 +96,9 @@ Route::put('comarcas/{item}', [ComarcasController::class, 'editar'])->name('coma
 Route::get('comarcas/{item}/edit}', [ComarcasController::class, 'edit'])->name('comarcas.edit');
 Route::get('comarcas/{item}/delete}', [ComarcasController::class, 'modal'])->name('comarcas.modal');
 Route::delete('comarcas/{item}', [ComarcasController::class, 'delete'])->name('comarcas.delete');
+Route::get('painel', function () {
+    return redirect('/processos');
+});
 
 //ROTAS PARA VARAS
 Route::get('varas', [VarasController::class, 'index'])->name('varas.index');

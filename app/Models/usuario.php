@@ -9,4 +9,9 @@ class usuario extends Model
 {
     public $timestamps = false;
     use HasFactory;
+
+    public function processos()
+    {
+        return $this->hasMany(Processo::class, 'adv_id');
+    }
 }

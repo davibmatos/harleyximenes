@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
@@ -11,35 +13,40 @@ class UsersController extends Controller
     {
         $usuario = $request->usuario;
         $senha = $request->senha;
-        
-        $usuarios = usuario::where('usuario', '=', $usuario)->where('senha', '=', $senha)->first();
 
-        if (@$usuarios->id != null) {
-            @session_start();
-            $_SESSION['id_usuario'] = $usuarios->id;
-            $_SESSION['usuario'] = $usuarios->usuario;
-            $_SESSION['nivel_usuario'] = $usuarios->nivel;
-            $_SESSION['cpf_usuario'] = $usuarios->cpf;
+        $usuarios = Usuario::where('usuario', '=', $usuario)->first();
 
-            if ($_SESSION['nivel_usuario'] == 'admin') {
-                return redirect()->route('painel-adv.audiencias.index');
-            }
-            if ($_SESSION['nivel_usuario'] == 'advogado') {
-                return view('painel-sindico.index');
-            }
-            if ($_SESSION['nivel_usuario'] == 'estagiario') {
-                return view('painel-user.index');
+        // Comparação direta da senha
+        if ($usuarios && $senha == $usuarios->senha) {
+            Session::put('id_usuario', $usuarios->id);
+            Session::put('usuario', $usuarios->usuario);
+            Session::put('nivel_usuario', $usuarios->nivel);
+            Session::put('cpf_usuario', $usuarios->cpf);
+
+            switch (Session::get('nivel_usuario')) {
+                case 'admin':
+                    return redirect()->route('painel-adv.prazos.index');
+                case 'advogado':
+                    return view('painel-sindico.index');
+                case 'estagiario':
+                    return view('painel-user.index');
+                default:
+                    Session::flush(); // limpe a sessão para evitar problemas
+                    return redirect()->route('login')->with('error', 'Nível de usuário não reconhecido.');
             }
         } else {
-            echo "<script language='javascript'> window.alert('Dados sadasdasd!') </script>";
-            return view('index');
+            return redirect()->route('login')->with('error', 'Dados Incorretos!');
         }
     }
+
     public function logout()
     {
-        @session_start();
-        @session_destroy();
+        Session::flush();
+        return redirect()->route('login');
+    }
+
+    public function showLoginForm()
+    {
         return view('index');
     }
 }
-
