@@ -2,10 +2,11 @@
 @section('title', 'Empresas')
 @section('content')
 <?php 
-@session_start();
-if(@$_SESSION['nivel_usuario'] != 'admin' && @$_SESSION['nivel_usuario'] != 'adv' ){ 
-  echo "<script language='javascript'> window.location='./' </script>";
-}
+$nivel_usuario = Session::get('nivel_usuario');
+    
+    if ($nivel_usuario !== 'admin' && $nivel_usuario !== 'adv') {
+        echo "<script language='javascript'> window.location='./' </script>";
+    }
 if(!isset($id)){
   $id = ""; 
   

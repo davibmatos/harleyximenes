@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\usuario;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
@@ -26,8 +25,8 @@ class UsersController extends Controller
             switch (Session::get('nivel_usuario')) {
                 case 'admin':
                     return redirect()->route('painel-adv.prazos.index');
-                case 'advogado':
-                    return view('painel-sindico.index');
+                case 'adv':
+                    return redirect()->route('painel-adv.prazos.index');
                 case 'estagiario':
                     return view('painel-user.index');
                 default:

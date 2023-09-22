@@ -54,3 +54,6 @@ document.getElementById('btn_buscar_empresa').addEventListener('click', async fu
         console.error("Erro ao buscar empresa", await response.text());
     }
 });
+
+
+

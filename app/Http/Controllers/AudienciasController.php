@@ -3,26 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Audiencia;
-use App\Models\Cliente;
-use App\Models\Empresa;
 use App\Models\Processo;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AudienciasController extends Controller
 {
-    public function index($fonte = null)
+    public function index(Request $request, $fonte = null)
     {
         $usuarioId = auth()->id();
+        $dataInicio = $request->get('data_inicio');
+        $dataFim = $request->get('data_fim');
+        $query = Processo::query();
+
+        if ($dataInicio && $dataFim) {
+            $query->whereBetween('data_aud', [$dataInicio, $dataFim]);
+        }
 
         if ($fonte === 'advogado') {
-            $itens = Processo::where('usuario_id', $usuarioId)->orderBy('data_aud', 'desc')->paginate();
-        } else {
-            $itens = Processo::orderBy('data_aud', 'desc')->paginate();
+            $query->where('usuario_id', $usuarioId);
         }
+
+        $itens = $query->orderBy('data_aud', 'desc')->paginate();
 
         return view('painel-adv.audiencias.index', ['itens' => $itens]);
     }
-
 
     public function create()
     {

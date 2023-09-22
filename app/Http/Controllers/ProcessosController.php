@@ -46,6 +46,22 @@ class ProcessosController extends Controller
             'anexos.*.max' => 'O tamanho do arquivo não deve exceder 10MB.'
         ]);
 
+        if ($request->has('adv_ids') && is_array($request->adv_ids)) {
+            $advogados = $request->adv_ids;
+        } else {
+            $advogados = explode(',', $request->adv_ids);
+        }
+
+        if (!$request->has('usuario_id') || is_null($request->usuario_id)) {
+            return redirect()->route('login')->with('error', 'Sua sessão expirou. Por favor, faça login novamente.');
+        }
+
+        $numeroExistente = Processo::where('numero', $request->numero)->count();
+
+        if ($numeroExistente > 0) {
+            return redirect()->back()->withInput()->with('error', 'Número de processo já existe no sistema!');
+        }
+
         $tabela = new Processo();
         $tabela->numero = $request->numero;
         $tabela->usuario_id = $request->usuario_id;
@@ -57,9 +73,12 @@ class ProcessosController extends Controller
         $tabela->hora_aud = $request->hora_aud;
         $tabela->tipo_aud = $request->tipo_aud;
         $tabela->adv_id = $request->adv_id;
-        dd($tabela);
 
         $tabela->save();
+
+        if (isset($advogados)) {
+            $tabela->advogados()->sync($advogados);
+        }
 
         if ($request->hasFile('anexos')) {
             foreach ($request->file('anexos') as $file) {
@@ -81,7 +100,8 @@ class ProcessosController extends Controller
     {
         $comarcas = Comarca::all();
         $varas = Vara::all();
-        return view('painel-adv.processos.edit', ['item' => $item], compact('comarcas', 'varas'));
+        $advogados = Usuario::all(); // Supondo que todos os usuários são advogados
+        return view('painel-adv.processos.edit', compact('item', 'comarcas', 'varas', 'advogados'));
     }
 
     public function update(Request $request, Processo $item)
@@ -95,6 +115,12 @@ class ProcessosController extends Controller
         $item->data_aud = $request->data_aud;
         $item->hora_aud = $request->hora_aud;
         $item->tipo_aud = $request->tipo_aud;
+
+        // Atualiza a relação de advogados responsáveis
+        if ($request->has('adv_ids')) {
+            $advogados = is_array($request->adv_ids) ? $request->adv_ids : explode(',', $request->adv_ids);
+            $item->advogados()->sync($advogados);
+        }
 
         if ($request->hasFile('anexos')) {
             foreach ($request->file('anexos') as $anexo) {
@@ -151,5 +177,22 @@ class ProcessosController extends Controller
         $anexo->delete();
 
         return back()->with('success', 'Anexo deletado com sucesso!');
+    }
+
+    public function meusProcessos()
+    {
+        $usuario_id = Session::get('id_usuario');
+
+        if (!$usuario_id) {
+            return redirect()->route('login')->with('error', 'Sua sessão expirou. Por favor, faça login novamente.');
+        }
+
+        $meusProcessos = Processo::where('usuario_id', $usuario_id)
+            ->orWhereHas('advogados', function ($query) use ($usuario_id) {
+                $query->where('advogado_id', $usuario_id);
+            })
+            ->get();
+
+        return view('painel-adv.processos.index', ['itens' => $meusProcessos]);
     }
 }

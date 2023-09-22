@@ -1,5 +1,5 @@
 @extends('templates.painel-adm')
-@section('title', 'Editar Inquilinos')
+@section('title', 'Editar Processo')
 @section('content')
     <h6 class="mb-4"><i>EDIÇÃO DE PROCESSOS</i></h6>
     <hr>
@@ -97,6 +97,19 @@
                     <input value="{{$item->tipo_aud}}" type="text" class="form-control" id="tipo_aud" name="tipo_aud" required>
                 </div>
             </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="advogado">Advogado Responsável</label>
+                    <select class="form-control" id="advogado" name="adv_ids[]" multiple>
+                        @foreach ($advogados as $advogado)
+                            <option value="{{ $advogado->id }}" 
+                            {{ in_array($advogado->id, $item->advogados->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                {{ $advogado->nome }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
         <input value="{{ $item->processo }}" type="hidden" name="oldprocesso">
         <div class="row">
@@ -111,6 +124,11 @@
     <script>
         $(document).ready(function() {
             aplicarMascaras();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#advogado').select2();
         });
     </script>
 @endsection

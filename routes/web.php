@@ -55,6 +55,9 @@ Route::get('/clientes/search', [ClientesController::class, 'searchByCpf'])->name
 Route::get('/empresas/search', [EmpresasController::class, 'searchByCnpj'])->name('empresas.searchByCnpj');
 Route::get('/get-varas', [ProcessosController::class, 'getVaras']);
 Route::delete('processos/{processo}/anexos/{anexo}', 'ProcessosController@deleteAnexo');
+Route::get('painel-adv/processos', [ProcessosController::class, 'index'])->name('painel-adv.processos.index');
+Route::get('painel-adv/meus-processos', [ProcessosController::class, 'meusProcessos'])->name('painel-adv.processos.meus');
+
 // Route::get('audiencias', [ProcessosController::class, 'audiencias'])->name('audiencias.index');
 
 //ROTAS PARA CLIENTES

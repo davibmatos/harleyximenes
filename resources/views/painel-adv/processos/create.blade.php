@@ -75,15 +75,14 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="advogado">Advogado Responsável</label>
-                            <select class="form-control" id="advogado" name="adv_id">
-                                <option value="" selected>Adv Responsável</option>
+                            <label for="advogado">Adv Responsável</label>
+                            <select class="form-control" id="advogado" name="adv_ids[]" multiple>
                                 @foreach ($advogados as $advogado)
                                     <option value="{{ $advogado->id }}">{{ $advogado->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 <div class="row">                    
                     <div class="col-md-2">
@@ -122,9 +121,17 @@
             <script src="{{ asset('js/mascaras.js') }}"></script>
             <script src="{{ asset('js/processos.js') }}"></script>
             <script src="{{ asset('js/processos_ajax.js') }}"></script>
+            <script src="{{ asset('js/buscaadvogados.js') }}"></script>
             <script>
                 $(document).ready(function() {
                     aplicarMascaras();
+                });
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#advogado').select2();
                 });
             </script>
 

@@ -5,6 +5,7 @@
     <hr>
     <form method="POST" action="{{ route('prazos.insert') }}">
         @csrf
+        <input type="hidden" name="usuario_id" value="{{ Session::get('id_usuario') }}">
 
         <div class="row">
             <div class="col-md-3">
@@ -20,7 +21,7 @@
                     <label for="matricula">Descrição</label>
                     <textarea class="form-control" id="descricao" name="descricao" rows="4"></textarea>
                 </div>
-            </div>            
+            </div>
         </div>
 
         <div class="row">
@@ -44,4 +45,6 @@
         </div>
     </form>
     <script src="{{ asset('js/processos.js') }}"></script>
+    <script src="{{ asset('js/mascaras.js') }}"></script>
+    <script src="{{ asset('js/processos_ajax.js') }}"></script>
 @endsection

@@ -1,24 +1,43 @@
 @extends('templates.painel-adm')
 @section('title', 'Audiências')
 @section('content')
-<?php 
-@session_start();
-if(@$_SESSION['nivel_usuario'] != 'admin'){ 
-  echo "<script language='javascript'> window.location='./' </script>";
-}
-if(!isset($id)){
-  $id = ""; 
-  
-}
 
-?>
+{{-- Verificar nível de usuário --}}
+@php
+  $nivel_usuario = \Session::get('nivel_usuario');
+@endphp
 
+@if($nivel_usuario !== 'admin' && $nivel_usuario !== 'adv')
+  <script language='javascript'> 
+    window.location='./';
+  </script>
+@endif
+
+{{-- Sua lógica de ID --}}
+@php
+  $id = $id ?? ''; 
+@endphp
+
+<div class="d-flex justify-content-end">
+  <form method="GET" action="{{ route('audiencias.index') }}" class="form-inline">
+    <div class="form-group">
+      <label for="data_inicio" class="mr-2">Data Inicial</label>
+      <input type="date" class="form-control mr-2" id="data_inicio" name="data_inicio">
+    </div>
+    <div class="form-group">
+      <label for="data_fim" class="mr-2">Data Final</label>
+      <input type="date" class="form-control mr-2" id="data_fim" name="data_fim">
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+  </form>
+</div>
 
 <a href="{{route('audiencias.inserir')}}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Audiência</a>
+
 @if (session('error'))
-    <div class="alert alert-danger mt-2">
-      {{ session('error') }}
-    </div>
+  <div class="alert alert-danger mt-2">
+    {{ session('error') }}
+  </div>
 @endif
 <!-- DataTales Example -->
 <div class="card shadow mb-4">

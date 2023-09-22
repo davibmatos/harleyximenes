@@ -1,5 +1,5 @@
 @extends('templates.painel-adm')
-@section('title', 'Inserir Inquilinos')
+@section('title', 'Inserir Parte Adversa')
 @section('content')
     <h6 class="mb-4"><i>CADASTRO DE PARTE ADVERSA</i></h6>
     <hr>

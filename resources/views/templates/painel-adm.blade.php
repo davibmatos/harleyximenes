@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\usuario;
+use Illuminate\Support\Facades\Session;
 
-@session_start();
-$id_usuario = @$_SESSION['id_usuario'];
+$id_usuario = Session::get('id_usuario');
 $usuario = usuario::find($id_usuario);
 
 ?>
@@ -61,7 +61,7 @@ $usuario = usuario::find($id_usuario);
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('painel-adv.prazos.index') }}">
 
-                <div class="sidebar-brand-text mx-3">Administrador</div>
+                <div class="sidebar-brand-text mx-3">ADVOGADO</div>
             </a>
 
             <!-- Divider -->
@@ -108,7 +108,7 @@ $usuario = usuario::find($id_usuario);
                 <div id="collapseAdvogado" class="collapse" aria-labelledby="headingAdvogado"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('processos.index') }}">Meus Processos</a>
+                        <a class="collapse-item" href="{{ route('painel-adv.processos.meus') }}">Meus Processos</a>
                         <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'advogado']) }}">Minhas Audiências</a>
                         <a class="collapse-item" href="{{ route('painel-adv.prazos.index') }}">Meus Prazos</a>
                     </div>

@@ -14,4 +14,9 @@ class Prazo extends Model
         'data_ini',
         'data_fim',
     ];
+
+    public function processo()
+    {
+        return $this->belongsTo(Processo::class, 'num_processo', 'id');
+    }
 }
