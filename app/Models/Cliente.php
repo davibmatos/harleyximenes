@@ -18,4 +18,11 @@ class Cliente extends Model
         'email',
         'salario',
     ];
+
+    public function documentos()
+    {
+        return $this->morphMany(Documento::class, 'documentoable');
+    }
+
+    
 }

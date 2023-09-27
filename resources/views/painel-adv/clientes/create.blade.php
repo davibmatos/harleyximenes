@@ -5,10 +5,10 @@
     <div class="container">
         <h6 class="mb-4"><i>CADASTRO DE CLIENTES</i></h6>
         <hr>
-        <form method="POST" action="{{ route('clientes.insert') }}">
+        <form method="POST" action="{{ route('clientes.insert') }}" enctype="multipart/form-data">
             @csrf
 
-            <!-- Inquilino fields -->
+         
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -69,8 +69,27 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="documentos">Documentos (PDF, máximo 2.0 MB)</label>
+                        <input type="file" class="form-control-file" id="documentos" name="documentos[]" accept=".pdf"
+                            multiple>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção para listar documentos anexados -->
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>Documentos Anexados:</h5>
+                    <div id="lista-documentos">
+                        <!-- Os documentos anexados serão listados aqui -->
+                    </div>
+                </div>
+            </div>
             {{-- <button type="button" class="btn btn-primary add-cnpj">+</button><br><br> --}}
-            
+
 
             <div class="row">
                 <div class="col-md-12 text-right">
@@ -91,7 +110,47 @@
     <script src="{{ asset('js/empresas.js') }}" defer></script>
     <script>
         $(document).ready(function() {
-            aplicarMascaras();
+            let listaDocumentos = $('#lista-documentos');
+            let arquivosAnexados = [];
+
+            $('#documentos').on('change', function() {
+                Array.from(this.files).forEach(file => {
+                    arquivosAnexados.push(file);
+                });
+                atualizarListaDocumentos();
+            });
+
+            function atualizarListaDocumentos() {
+                listaDocumentos.empty();
+                arquivosAnexados.forEach((file, index) => {
+                    let caixa = $('<div class="documento-caixa"></div>');
+                    caixa.append(`<span>${file.name}</span>`);
+                    let botaoRemover = $(
+                        '<button type="button" class="btn btn-danger btn-sm">Remover</button>');
+                    botaoRemover.on('click', function() {
+                        arquivosAnexados.splice(index, 1);
+                        atualizarListaDocumentos();
+                    });
+                    caixa.append(botaoRemover);
+                    listaDocumentos.append(caixa);
+                });
+            }
         });
     </script>
+    <style>
+        .documento-caixa {
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 50%;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+            /* Ajuste o valor conforme necessário */
+        }
+    </style>
 @endsection

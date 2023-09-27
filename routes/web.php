@@ -90,6 +90,7 @@ Route::put('prazos/{item}', [PrazosController::class, 'editar'])->name('prazos.e
 Route::get('prazos/{item}/edit}', [PrazosController::class, 'edit'])->name('prazos.edit');
 Route::get('prazos/{item}/delete}', [PrazosController::class, 'modal'])->name('prazos.modal');
 Route::delete('prazos/{item}', [PrazosController::class, 'delete'])->name('prazos.delete');
+Route::put('prazos/{item}/complete', [PrazosController::class, 'complete'])->name('prazos.complete');
 
 //ROTAS PARA COMARCAS
 Route::get('comarcas', [ComarcasController::class, 'index'])->name('comarcas.index');

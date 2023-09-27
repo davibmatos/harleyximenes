@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Login</title>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
         <style>
@@ -210,9 +210,24 @@
                 @csrf
                 <input name="usuario" placeholder="Email" required="required" />
                 <input type="password" name="senha" placeholder="Senha" required="required" />
+                @if (session('primeiro_acesso'))
+                    <div id="new-password-field">
+                        <input type="password" name="nova_senha" placeholder="Nova Senha" required />
+                    </div>
+                @endif
                 <button type="submit" class="btn btn-info btn-block btn-large">Entrar</button>
             </form>
         </div>
+        <script>
+            $(document).ready(function() {
+                let primeiroAcesso = {{ session('primeiro_acesso', 0) }};
+                if (primeiroAcesso == 1) {
+                    $('#new-password-field').show();
+                } else {
+                    $('#new-password-field').hide();
+                }
+            });
+        </script>
     </body>
 
     </html>

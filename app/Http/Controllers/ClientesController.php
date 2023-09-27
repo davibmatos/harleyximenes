@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientesController extends Controller
 {
@@ -21,6 +22,7 @@ class ClientesController extends Controller
 
     public function insert(Request $request)
     {
+
         $tabela = new Cliente();
         $tabela->nome = $request->nome;
         $tabela->cpf = $request->cpf;
@@ -32,6 +34,18 @@ class ClientesController extends Controller
         $tabela->endereco = $request->endereco;
         $tabela->ecivil = $request->ecivil;
         $tabela->save();
+
+
+        if ($request->hasFile('documentos')) {
+            foreach ($request->file('documentos') as $file) {
+                $path = $file->store('documentos', 'public');
+                $tabela->documentos()->create([
+                    'nome_arquivo' => $path,
+                    'tipo' => 'pdf'
+                ]);
+            }
+        }
+
         return redirect()->route('clientes.index');
     }
 
@@ -50,8 +64,27 @@ class ClientesController extends Controller
         $item->email = $request->email;
         $item->salario = $request->salario;
         $item->save();
+
+        if ($request->hasFile('documentos')) {
+            // Remove os arquivos antigos
+            foreach ($item->documentos as $doc) {
+                Storage::disk('public')->delete($doc->nome_arquivo);
+                $doc->delete();
+            }
+
+            // Adiciona os novos arquivos
+            foreach ($request->file('documentos') as $file) {
+                $path = $file->store('documentos', 'public');
+                $item->documentos()->create([
+                    'nome_arquivo' => $path,
+                    'tipo' => 'pdf'
+                ]);
+            }
+        }
+
         return redirect()->route('clientes.index');
     }
+
 
     public function delete(Cliente $item)
     {

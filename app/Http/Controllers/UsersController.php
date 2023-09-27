@@ -12,11 +12,21 @@ class UsersController extends Controller
     {
         $usuario = $request->usuario;
         $senha = $request->senha;
+        $novaSenha = $request->nova_senha;
 
         $usuarios = Usuario::where('usuario', '=', $usuario)->first();
 
-        // Comparação direta da senha
         if ($usuarios && $senha == $usuarios->senha) {
+            if ($usuarios->primeiro_acesso) {
+                if ($novaSenha) {
+                    $usuarios->senha = $novaSenha;
+                    $usuarios->primeiro_acesso = 0;
+                    $usuarios->save();
+                } else {
+                    return redirect()->route('login')->with('primeiro_acesso', true);
+                }
+            }
+
             Session::put('id_usuario', $usuarios->id);
             Session::put('usuario', $usuarios->usuario);
             Session::put('nivel_usuario', $usuarios->nivel);
@@ -30,13 +40,27 @@ class UsersController extends Controller
                 case 'estagiario':
                     return view('painel-user.index');
                 default:
-                    Session::flush(); // limpe a sessão para evitar problemas
+                    Session::flush();
                     return redirect()->route('login')->with('error', 'Nível de usuário não reconhecido.');
             }
         } else {
             return redirect()->route('login')->with('error', 'Dados Incorretos!');
         }
     }
+
+    public function atualizarSenha(Request $request)
+    {
+        $id = Session::get('id_usuario');
+        $novaSenha = $request->nova_senha;
+
+        $usuario = Usuario::find($id);
+        $usuario->senha = $novaSenha; // considere usar hash aqui
+        $usuario->primeiro_acesso = false;
+        $usuario->save();
+
+        return redirect()->route('painel-adv.prazos.index');
+    }
+
 
     public function logout()
     {

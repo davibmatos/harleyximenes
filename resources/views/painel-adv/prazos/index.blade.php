@@ -2,21 +2,20 @@
 @section('title', 'Prazos')
 @section('content')
     <?php
-    use Illuminate\Support\Facades\Session; // Certifique-se de que essa linha esteja no topo do seu arquivo
+    use Illuminate\Support\Facades\Session;
     
     $nivel_usuario = Session::get('nivel_usuario');
     
     if ($nivel_usuario !== 'admin' && $nivel_usuario !== 'adv') {
         echo "<script language='javascript'> window.location='./' </script>";
     }
-   
-
-    if (!isset($id)) {
-    $id = '';
-    }
-
-    ?>
     
+    if (!isset($id)) {
+        $id = '';
+    }
+    
+    ?>
+
 
 
     <a href="{{ route('prazos.inserir') }}" type="button" class="mt-4 mb-4 btn btn-primary">Novo Prazo</a>
@@ -37,6 +36,7 @@
                             <th>Descrição</th>
                             <th>Data Inicial</th>
                             <th>Prazo Fatal</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -48,11 +48,26 @@
                                 <td>{{ $item->descricao }}</td>
                                 <td>{{ $item->data_ini }}</td>
                                 <td>{{ $item->data_fim }}</td>
+                                <td
+                                    class="
+                                    @if ($item->status === 'em aberto') bg-warning 
+                                    @elseif ($item->status === 'Cumprido') bg-success 
+                                    @elseif ($item->status === 'vencido') bg-danger @endif">
+                                    <strong style="color: black;">{{ $item->status }}</strong>
+                                </td>
                                 <td>
                                     <a href="{{ route('prazos.edit', $item) }}"><i
                                             class="fas fa-edit text-info mr-1"></i></a>
                                     <a href="{{ route('prazos.modal', $item) }}"><i
                                             class="fas fa-trash text-danger mr-1"></i></a>
+                                    <form action="{{ route('prazos.complete', $item) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" style="border: none; background: none;">
+                                            <i class="fas fa-check text-success mr-1"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

@@ -21,14 +21,14 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="busca_cliente">Buscar Autor pelo CPF/CNPJ</label>
+                            <label for="busca_cliente">Buscar Autor</label>
                             <input type="text" class="form-control" id="busca_cliente" placeholder="Digite o CPF/CNPJ">
                             <button type="button" id="btn_buscar_cliente" class="btn btn-secondary mt-2">Buscar</button>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="busca_empresa">Buscar Empresa pelo CPF/CNPJ</label>
+                            <label for="busca_empresa">Buscar parte Adversa</label>
                             <input type="text" class="form-control" id="busca_empresa" placeholder="Digite o CPF/CNPJ">
                             <button type="button" id="btn_buscar_empresa" class="btn btn-secondary mt-2">Buscar</button>
                         </div>

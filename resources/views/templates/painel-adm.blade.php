@@ -1,10 +1,17 @@
 <?php
 
-use App\Models\usuario;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Session;
 
 $id_usuario = Session::get('id_usuario');
-$usuario = usuario::find($id_usuario);
+
+if (!$id_usuario) {
+    Session::flush();
+    return redirect()->route('login');
+    exit();
+}
+
+$usuario = Usuario::find($id_usuario);
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +66,8 @@ $usuario = usuario::find($id_usuario);
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('painel-adv.prazos.index') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('painel-adv.prazos.index') }}">
 
                 <div class="sidebar-brand-text mx-3">ADVOGADO</div>
             </a>
@@ -81,7 +89,7 @@ $usuario = usuario::find($id_usuario);
                     <i class="fas fa-fw fa-building"></i>
                     <span>Cadastro de Parte Adversa</span>
                 </a>
-            </li>            
+            </li>
             <!-- Painel do Escritório -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEscritorio"
@@ -93,7 +101,8 @@ $usuario = usuario::find($id_usuario);
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('processos.index') }}">Processos Gerais</a>
-                        <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'escritorio']) }}">Audiências Geral</a>
+                        <a class="collapse-item"
+                            href="{{ route('audiencias.index', ['fonte' => 'escritorio']) }}">Audiências Geral</a>
                     </div>
                 </div>
             </li>
@@ -109,7 +118,8 @@ $usuario = usuario::find($id_usuario);
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('painel-adv.processos.meus') }}">Meus Processos</a>
-                        <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'advogado']) }}">Minhas Audiências</a>
+                        <a class="collapse-item" href="{{ route('audiencias.index', ['fonte' => 'advogado']) }}">Minhas
+                            Audiências</a>
                         <a class="collapse-item" href="{{ route('painel-adv.prazos.index') }}">Meus Prazos</a>
                     </div>
                 </div>

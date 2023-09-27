@@ -55,22 +55,34 @@ class PrazosController extends Controller
 
     public function edit(Prazo $item)
     {
+        $item->data_ini = Carbon::parse($item->data_ini)->format('d/m/Y');
+        $item->data_fim = Carbon::parse($item->data_fim)->format('d/m/Y');
+
         return view('painel-adv.prazos.edit', ['item' => $item]);
     }
 
-    public function update(Request $request, Prazo $item)
+    public function editar(Request $request, Prazo $item)
     {
-        $item->processo_id = $request->processo_id;
-        $item->data_ini = $request->data_ini;
-        $item->data_fim = $request->data_fim;
+        $item->descricao = $request->descricao;
+        $item->data_ini = Carbon::createFromFormat('d/m/Y', $request->data_ini)->format('Y-m-d');
+        $item->data_fim = Carbon::createFromFormat('d/m/Y', $request->data_fim)->format('Y-m-d');
+        $item->status = $request->status;
         $item->save();
-        return redirect()->route('prazos.index');
+
+        return redirect()->route('painel-adv.prazos.index')->with('success', 'Prazo atualizado com sucesso.');
     }
 
     public function delete(Prazo $item)
     {
         $item->delete();
-        return redirect()->route('prazos.index');
+        return redirect()->route('painel-adv.prazos.index');
+    }
+
+    public function complete(Prazo $item)
+    {
+        $item->status = 'Cumprido';
+        $item->save();
+        return redirect()->route('painel-adv.prazos.index')->with('success', 'Prazo marcado como cumprido.');
     }
 
     public function modal($id)
