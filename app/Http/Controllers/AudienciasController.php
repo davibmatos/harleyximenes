@@ -11,6 +11,8 @@ class AudienciasController extends Controller
 {
     public function index(Request $request, $fonte = null)
     {
+     
+        
         $usuarioId = auth()->id();
         $dataInicio = $request->get('data_inicio');
         $dataFim = $request->get('data_fim');
@@ -30,12 +32,13 @@ class AudienciasController extends Controller
     }
 
     public function create()
-    {
+    {        
         return view('painel-adv.audiencias.create');
     }
 
     public function insert(Request $request)
     {
+        
         $numeroProcesso = $request->numero_processo;
         $dataAud = $request->data_aud;
         $horaAud = $request->hora_aud;
@@ -43,8 +46,7 @@ class AudienciasController extends Controller
         $usuarioId = auth()->id(); // Obtém o ID do usuário logado
 
         $processoExistente = Processo::where('numero', $numeroProcesso)->first();
-        dd($processoExistente);
-
+       
         if ($processoExistente) {
             $processoExistente->data_aud = $dataAud;
             $processoExistente->hora_aud = $horaAud;

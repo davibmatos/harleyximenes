@@ -30,10 +30,10 @@ Route::get('home-admin', [AdminController::class, 'index'])->name('admin.index')
 Route::get('painel-adv/audiencias', [AudienciasController::class, 'index'])->name('painel-adv.audiencias.index');
 
 //ROTAS PARA AUDIÊNCIAS
+Route::get('audiencias/inserir', [AudienciasController::class, 'create'])->name('audiencias.inserir');
 Route::get('audiencias/{fonte?}', [AudienciasController::class, 'index'])->name('audiencias.index');
 // Route::get('audiencias', [AudienciasController::class, 'index'])->name('audiencias.index');
 Route::post('audiencias', [AudienciasController::class, 'insert'])->name('audiencias.insert');
-Route::get('audiencias/inserir', [AudienciasController::class, 'create'])->name('audiencias.inserir');
 // Route::put('audiencias/{item}', [AudienciasController::class, 'editar'])->name('audiencias.editar');
 // Route::get('audiencias/{item}/edit}', [AudienciasController::class, 'edit'])->name('audiencias.edit');
 // Route::get('audiencias/{item}/delete}', [AudienciasController::class, 'modal'])->name('audiencias.modal');

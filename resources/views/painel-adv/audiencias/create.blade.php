@@ -5,7 +5,7 @@
     <hr>
     <form method="POST" action="{{ route('audiencias.insert') }}">
         @csrf
-
+        <input type="hidden" name="usuario_id" value="{{ Session::get('id_usuario') }}">
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">

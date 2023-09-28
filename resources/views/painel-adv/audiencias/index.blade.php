@@ -1,32 +1,30 @@
 @extends('templates.painel-adm')
 @section('title', 'Audiências')
 @section('content')
-
-{{-- Verificar nível de usuário --}}
-@php
-  $nivel_usuario = \Session::get('nivel_usuario');
-@endphp
-
-@if($nivel_usuario !== 'admin' && $nivel_usuario !== 'adv')
-  <script language='javascript'> 
-    window.location='./';
-  </script>
-@endif
-
-{{-- Sua lógica de ID --}}
-@php
-  $id = $id ?? ''; 
-@endphp
+<?php
+    use Illuminate\Support\Facades\Session;
+    
+    $nivel_usuario = Session::get('nivel_usuario');
+    
+    if ($nivel_usuario !== 'admin' && $nivel_usuario !== 'adv') {
+        echo "<script language='javascript'> window.location='./' </script>";
+    }
+    
+    if (!isset($id)) {
+        $id = '';
+    }
+    
+    ?>
 
 <div class="d-flex justify-content-end">
   <form method="GET" action="{{ route('audiencias.index') }}" class="form-inline">
     <div class="form-group">
       <label for="data_inicio" class="mr-2">Data Inicial</label>
-      <input type="date" class="form-control mr-2" id="data_inicio" name="data_inicio">
+      <input type="text" style="width: 150px;" class="form-control mr-2" id="data_ini" name="data_ini">
     </div>
     <div class="form-group">
       <label for="data_fim" class="mr-2">Data Final</label>
-      <input type="date" class="form-control mr-2" id="data_fim" name="data_fim">
+      <input type="text" style="width: 150px;" class="form-control mr-2" id="data_fim" name="data_fim">
     </div>
     <button type="submit" class="btn btn-primary">Filtrar</button>
   </form>
