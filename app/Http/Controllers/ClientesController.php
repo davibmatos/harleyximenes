@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Empresa;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ClientesController extends Controller
 {
@@ -22,6 +24,11 @@ class ClientesController extends Controller
 
     public function insert(Request $request)
     {
+        $clienteExistente = Cliente::where('cpf', $request->cpf)->first();
+
+        if ($clienteExistente) {
+            return redirect()->route('clientes.index')->with('error', 'Cliente com esse CPF já existe.');
+        }
 
         $tabela = new Cliente();
         $tabela->nome = $request->nome;
@@ -88,8 +95,50 @@ class ClientesController extends Controller
 
     public function delete(Cliente $item)
     {
-        $item->delete();
-        return redirect()->route('clientes.index');
+        try {
+
+            dd('cheguei aqui');
+            $item->delete();
+
+            return redirect()->route('clientes.index');
+        } catch (QueryException $e) {
+            return redirect()->route('clientes.index')->with('error', 'Este cliente possui um Processo associado a ele e portanto não poderá ser excluído.');
+        }
+    }
+
+    public function documentos(Cliente $item)
+    {
+        return view('painel-adv.clientes.documentos', ['item' => $item]);
+    }
+
+    public function deleteDocument(Request $request, $cliente_id, $documento_id)
+    {
+        $cliente = Cliente::findOrFail($cliente_id);
+        $documento = $cliente->documentos->where('id', $documento_id)->first();
+
+        if ($documento) {
+            Storage::disk('public')->delete($documento->nome_arquivo);
+            $documento->delete();
+            return redirect()->back()->with('message', 'Documento deletado com sucesso.');
+        } else {
+            return redirect()->back()->with('message', 'Documento não encontrado.');
+        }
+    }
+
+    public function addDocument(Request $request, Cliente $item)
+    {
+        if ($request->hasFile('documentos')) {
+            foreach ($request->file('documentos') as $file) {
+                $path = $file->store('documentos', 'public');
+                $nome_documento = $request->input('nome_documento');  // Pega o nome do documento do formulário
+                $item->documentos()->create([
+                    'nome_arquivo' => $path,
+                    'tipo' => 'pdf',
+                    'nome_documento' => $nome_documento  // Inclui o nome do documento aqui
+                ]);
+            }
+        }
+        return redirect()->back()->with('message', 'Documento(s) adicionado(s) com sucesso.');
     }
 
     public function modal($id)

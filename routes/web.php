@@ -40,6 +40,7 @@ Route::post('audiencias', [AudienciasController::class, 'insert'])->name('audien
 // Route::delete('audiencias/{item}', [AudienciasController::class, 'delete'])->name('audiencias.delete');
 Route::get('/getCliente', [ProcessosController::class, 'getCliente'])->name('processos.getCliente');
 Route::get('/get-audiencia-details', [AudienciasController::class, 'getAudienciaDetails']);
+Route::post('/audiencias/update', [AudienciasController::class, 'updateAudiencia'])->name('audiencias.update');
 
 
 
@@ -61,6 +62,10 @@ Route::get('painel-adv/meus-processos', [ProcessosController::class, 'meusProces
 // Route::get('audiencias', [ProcessosController::class, 'audiencias'])->name('audiencias.index');
 
 //ROTAS PARA CLIENTES
+// Route::post('/clientes/{item}/documentos/adicionar', [ClientesController::class, 'addDocument'])->name('documentos.adicionar');
+Route::delete('clientes/{cliente}/documentos/{documento}', [ClientesController::class, 'deleteDocument'])->name('documentos.deletar');
+Route::post('/clientes/{item}/adicionar-documentos', [ClientesController::class, 'addDocument'])->name('documentos.adicionar');
+Route::get('clientes/{item}/documentos', [ClientesController::class, 'documentos'])->name('clientes.documentos');
 Route::get('clientes', [ClientesController::class, 'index'])->name('clientes.index');
 Route::post('clientes', [ClientesController::class, 'insert'])->name('clientes.insert');
 Route::get('clientes/inserir', [ClientesController::class, 'create'])->name('clientes.inserir');
@@ -68,6 +73,7 @@ Route::put('clientes/{item}', [ClientesController::class, 'editar'])->name('clie
 Route::get('clientes/{item}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
 Route::get('clientes/{item}/delete', [ClientesController::class, 'modal'])->name('clientes.modal');
 Route::delete('clientes/{item}', [ClientesController::class, 'delete'])->name('clientes.delete');
+
 
 //ROTAS PARA EMPRESAS
 Route::get('empresas', [EmpresasController::class, 'index'])->name('empresas.index');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Documento extends Model
 {
-    protected $fillable = ['nome_arquivo', 'tipo', 'documentoable_id', 'documentoable_type'];
+    protected $fillable = ['nome_arquivo', 'tipo', 'nome_documento', 'documentoable_id', 'documentoable_type'];
 
     public function documentoable()
     {

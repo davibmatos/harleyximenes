@@ -11,15 +11,15 @@ class AudienciasController extends Controller
 {
     public function index(Request $request, $fonte = null)
     {
-     
-        
         $usuarioId = auth()->id();
-        $dataInicio = $request->get('data_inicio');
-        $dataFim = $request->get('data_fim');
+        $dataInicio = $request->get('data_ini');  // Trocado para corresponder ao nome do campo no form
+        $dataFim = $request->get('data_fim');  // Trocado para corresponder ao nome do campo no form
         $query = Processo::query();
 
         if ($dataInicio && $dataFim) {
-            $query->whereBetween('data_aud', [$dataInicio, $dataFim]);
+            $dataIni = Carbon::createFromFormat('d/m/Y', $dataInicio)->startOfDay();
+            $dataFim = Carbon::createFromFormat('d/m/Y', $dataFim)->endOfDay();
+            $query->whereBetween('data_aud', [$dataIni, $dataFim]);
         }
 
         if ($fonte === 'advogado') {
@@ -31,14 +31,33 @@ class AudienciasController extends Controller
         return view('painel-adv.audiencias.index', ['itens' => $itens]);
     }
 
+
     public function create()
-    {        
+    {
         return view('painel-adv.audiencias.create');
+    }
+
+    public function updateAudiencia(Request $request)
+    {
+        $id = $request->id_audiencia;
+        $dataAud = $request->data_aud;
+        $horaAud = $request->hora_aud;
+
+        $processo = Processo::find($id);
+
+        if ($processo) {
+            $processo->data_aud = $dataAud;
+            $processo->hora_aud = $horaAud;
+            $processo->save();
+            return redirect()->route('audiencias.index')->with('success', 'Data e hora atualizadas com sucesso.');
+        } else {
+            return redirect()->route('audiencias.index')->with('error', 'Processo não encontrado.');
+        }
     }
 
     public function insert(Request $request)
     {
-        
+
         $numeroProcesso = $request->numero_processo;
         $dataAud = $request->data_aud;
         $horaAud = $request->hora_aud;
@@ -46,7 +65,7 @@ class AudienciasController extends Controller
         $usuarioId = auth()->id(); // Obtém o ID do usuário logado
 
         $processoExistente = Processo::where('numero', $numeroProcesso)->first();
-       
+
         if ($processoExistente) {
             $processoExistente->data_aud = $dataAud;
             $processoExistente->hora_aud = $horaAud;

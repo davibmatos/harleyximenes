@@ -50,6 +50,8 @@
                                             class="fas fa-edit text-info mr-1"></i></a>
                                     <a href="{{ route('clientes.modal', $item) }}"><i
                                             class="fas fa-trash text-danger mr-1"></i></a>
+                                    <a href="{{ route('clientes.documentos', $item) }}"><i
+                                            class="fas fa-file text-success mr-1"></i></a>
                                 </td>
                             </tr>
                         @endforeach
