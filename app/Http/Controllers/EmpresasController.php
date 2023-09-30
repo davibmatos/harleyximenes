@@ -37,13 +37,15 @@ class EmpresasController extends Controller
         return view('painel-adv.empresas.edit', ['item' => $item]);
     }
 
-    public function update(Request $request, Empresa $item)
+    public function editar(Request $request, Empresa $item)
     {
         $item->nome = $request->nome;
         $item->cnpj = $request->cnpj;
         $item->telefone = $request->telefone;
         $item->telefone2 = $request->telefone2;
         $item->email = $request->email;
+        $item->endereco = $request->endereco;
+        $item->preposto = $request->preposto;
         $item->save();
         return redirect()->route('empresas.index');
     }
@@ -57,7 +59,7 @@ class EmpresasController extends Controller
     public function modal($id)
     {
         $item = Empresa::orderby('id', 'desc')->paginate();
-        return view('painel-adm.empresas.index', ['itens' => $item, 'id' => $id]);
+        return view('painel-adv.empresas.index', ['itens' => $item, 'id' => $id]);
     }
 
     public function search(Request $request)

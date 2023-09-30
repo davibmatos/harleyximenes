@@ -76,7 +76,9 @@ class ProcessosController extends Controller
 
         $tabela->save();
 
-        if (isset($advogados)) {
+        $advogados = $request->adv_ids ?? [];
+        if (!empty($advogados)) {
+            $advogados = is_array($advogados) ? $advogados : explode(',', $advogados);
             $tabela->advogados()->sync($advogados);
         }
 
@@ -104,7 +106,7 @@ class ProcessosController extends Controller
         return view('painel-adv.processos.edit', compact('item', 'comarcas', 'varas', 'advogados'));
     }
 
-    public function update(Request $request, Processo $item)
+    public function editar(Request $request, Processo $item)
     {
         $item->numero = $request->numero;
         $item->usuario_id = $request->usuario_id;
@@ -117,9 +119,12 @@ class ProcessosController extends Controller
         $item->tipo_aud = $request->tipo_aud;
 
         // Atualiza a relação de advogados responsáveis
-        if ($request->has('adv_ids')) {
-            $advogados = is_array($request->adv_ids) ? $request->adv_ids : explode(',', $request->adv_ids);
+        $advogados = $request->adv_ids ?? [];
+        if (!empty($advogados)) {
+            $advogados = is_array($advogados) ? $advogados : explode(',', $advogados);
             $item->advogados()->sync($advogados);
+        } else {
+            $item->advogados()->detach();
         }
 
         if ($request->hasFile('anexos')) {
@@ -135,6 +140,7 @@ class ProcessosController extends Controller
 
     public function delete(Processo $item)
     {
+        $item->advogados()->detach();
         $item->delete();
         return redirect()->route('processos.index');
     }

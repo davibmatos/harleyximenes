@@ -70,7 +70,7 @@
                     <select class="form-control" id="vara" name="vara_id">
                         <option value="" selected>Selecione uma Vara</option>
                         @foreach ($varas as $vara)
-                            <option value="{{ $vara->numero }}" {{ $item->vara->numero == $vara->numero ? 'selected' : '' }}>
+                            <option value="{{ $vara->id }}" {{ $item->vara_id == $vara->id ? 'selected' : '' }}>
                                 {{ $vara->numero }}
                             </option>
                         @endforeach

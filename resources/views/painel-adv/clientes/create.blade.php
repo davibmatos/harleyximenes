@@ -68,29 +68,7 @@
                         <input type="text" class="form-control" id="endereco" name="endereco">
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="documentos">Documentos (PDF, máximo 2.0 MB)</label>
-                        <input type="file" class="form-control-file" id="documentos" name="documentos[]" accept=".pdf"
-                            multiple>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Seção para listar documentos anexados -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h5>Documentos Anexados:</h5>
-                    <div id="lista-documentos">
-                        <!-- Os documentos anexados serão listados aqui -->
-                    </div>
-                </div>
-            </div>
-            {{-- <button type="button" class="btn btn-primary add-cnpj">+</button><br><br> --}}
-
-
+            </div>            
             <div class="row">
                 <div class="col-md-12 text-right">
                     <p align="left">
