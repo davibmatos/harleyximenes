@@ -64,13 +64,13 @@
                                 <td>{{ \Carbon\Carbon::parse($item->data_aud)->format('d/m/Y') }}</td>
                                 <td>{{ @$item->hora_aud }}</td>
                                 <td>
-                                  <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                  data-target="#editAudienciaModal" data-id="{{ $item->id }}"
-                                  data-hora="{{ $item->hora_aud }}" data-data="{{ $item->data_aud }}"><i
-                                      class="fas fa-clock"></i></button>
+                                    <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                        data-target="#editAudienciaModal" data-id="{{ $item->id }}"
+                                        data-hora="{{ $item->hora_aud }}" data-data="{{ $item->data_aud }}"><i
+                                            class="fas fa-clock"></i></button>
                                     <a href="{{ route('processos.modal', $item) }}"><i
                                             class="fas fa-trash text-danger mr-1"></i></a>
-                                    
+
                                 </td>
                             </tr>
                         @endforeach
@@ -91,18 +91,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('audiencias.update') }}">
+                <form method="POST" action="{{ route('audiencias.update') }}" class="m-3">
                     @csrf
                     <input type="hidden" id="id_audiencia" name="id_audiencia">
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label for="data_aud">Data da Audiência</label>
                         <input type="date" class="form-control" id="data_aud" name="data_aud">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2">
                         <label for="hora_aud">Hora da Audiência</label>
                         <input type="time" class="form-control" id="hora_aud" name="hora_aud">
                     </div>
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    <button type="submit" class="btn btn-primary mt-2">Atualizar</button>
                 </form>
             </div>
         </div>

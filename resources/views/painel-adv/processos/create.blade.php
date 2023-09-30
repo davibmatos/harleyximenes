@@ -69,7 +69,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="vara">Vara</label>
-                            <select class="form-control" id="vara" name="vara_id">                              
+                            <select class="form-control" id="vara" name="vara_id">
                             </select>
                         </div>
                     </div>
@@ -82,9 +82,9 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
-                <div class="row">                    
+                <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="numero">Data da audiência</label>
@@ -103,14 +103,48 @@
                             <input type="text" class="form-control" id="tipo_aud" name="tipo_aud">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                </div>
+
+                <!-- Início dos novos campos -->
+                <div class="row mt-3">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="anexo">Anexo (PDF)</label>
-                            <input type="file" class="form-control-file" id="anexo" name="anexos[]" accept=".pdf"
-                                multiple>
+                            <label for="movimentacao">Movimentação</label>
+                            <textarea class="form-control" id="movimentacao" name="movimentacao" rows="4"></textarea>
                         </div>
                     </div>
                 </div>
+
+                <div class="row mt-1">
+                    <div class="col-md-3">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="acordo" name="acordo">
+                            <label class="form-check-label" for="acordo">Acordo?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="valor_total">Valor Total</label>
+                            <input type="text" class="form-control" id="valor_total" name="valor_total">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="qtd_parcelas">Quantidade de Parcelas</label>
+                            <input type="number" class="form-control" id="qtd_parcelas" name="qtd_parcelas">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="vencimentos">Vencimentos (dd/mm/aaaa separados por vírgula)</label>
+                            <input type="text" class="form-control" id="vencimentos" name="vencimentos">
+                        </div>
+                    </div>
+                </div>
+                <!-- Fim dos novos campos -->
 
                 <div class="row mt-3">
                     <div class="col-md-12">
@@ -132,7 +166,10 @@
             <script>
                 $(document).ready(function() {
                     $('#advogado').select2();
+                    $('#valor_total').mask('000.000.000.000.000,00', {reverse: true});
+
                 });
             </script>
+            
 
         @endsection

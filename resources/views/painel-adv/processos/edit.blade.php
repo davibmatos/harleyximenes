@@ -82,19 +82,22 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="data_aud">Data Audiência</label>
-                    <input value="{{$item->data_aud}}" type="date" class="form-control" id="data_aud" name="data_aud" required>
+                    <input value="{{ $item->data_aud }}" type="date" class="form-control" id="data_aud" name="data_aud"
+                        required>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="nome_autor">Horário</label>
-                    <input value="{{$item->hora_aud}}" type="time" class="form-control" id="hora_aud" name="hora_aud" required>
+                    <input value="{{ $item->hora_aud }}" type="time" class="form-control" id="hora_aud" name="hora_aud"
+                        required>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="nome_re">Tipo da audiência</label>
-                    <input value="{{$item->tipo_aud}}" type="text" class="form-control" id="tipo_aud" name="tipo_aud" required>
+                    <input value="{{ $item->tipo_aud }}" type="text" class="form-control" id="tipo_aud" name="tipo_aud"
+                        required>
                 </div>
             </div>
             <div class="col-md-3">
@@ -102,8 +105,8 @@
                     <label for="advogado">Advogado Responsável</label>
                     <select class="form-control" id="advogado" name="adv_ids[]" multiple>
                         @foreach ($advogados as $advogado)
-                            <option value="{{ $advogado->id }}" 
-                            {{ in_array($advogado->id, $item->advogados->pluck('id')->toArray()) ? 'selected' : '' }}>
+                            <option value="{{ $advogado->id }}"
+                                {{ in_array($advogado->id, $item->advogados->pluck('id')->toArray()) ? 'selected' : '' }}>
                                 {{ $advogado->nome }}
                             </option>
                         @endforeach
@@ -111,6 +114,50 @@
                 </div>
             </div>
         </div>
+        <!-- Início dos novos campos -->
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="movimentacao">Movimentação</label>
+                    <textarea class="form-control" id="movimentacao" name="movimentacao" rows="4">{{ $item->movimentacao }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-3">
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="acordo" name="acordo"
+                        {{ $item->acordo ? 'checked' : '' }}>
+                    <label class="form-check-label" for="acordo">Acordo?</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="valor_total">Valor Total</label>
+                    <input type="text" class="form-control" id="valor_total" name="valor_total"
+                        value="{{ $item->valor_total }}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="qtd_parcelas">Quantidade de Parcelas</label>
+                    <input type="number" class="form-control" id="qtd_parcelas" name="qtd_parcelas"
+                        value="{{ $item->qtd_parcelas }}">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="vencimentos">Vencimentos (dd/mm/aaaa separados por vírgula)</label>
+                    <input type="text" class="form-control" id="vencimentos" name="vencimentos"
+                        value="{{ $item->vencimentos }}">
+                </div>
+            </div>
+        </div>
+        <!-- Fim dos novos campos -->
         <input value="{{ $item->processo }}" type="hidden" name="oldprocesso">
         <div class="row">
             <div class="col-md-12">

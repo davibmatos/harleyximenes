@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Anexo;
 use App\Models\Comarca;
 use App\Models\Processo;
-use App\Models\usuario;
+use App\Models\Usuario;
 use App\Models\Vara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class ProcessosController extends Controller
     public function create()
     {
         $comarcas = Comarca::all();
-        $advogados = usuario::all();
+        $advogados = Usuario::all();
         return view('painel-adv.processos.create', compact('comarcas', 'advogados'));
     }
 
@@ -74,6 +74,14 @@ class ProcessosController extends Controller
         $tabela->tipo_aud = $request->tipo_aud;
         $tabela->adv_id = $request->adv_id;
 
+        $tabela->movimentacao = $request->movimentacao;
+        $tabela->acordo = $request->has('acordo') ? 1 : 0;
+        if ($tabela->acordo) {
+            $tabela->valor_total = $request->valor_total;
+            $tabela->qtd_parcelas = $request->qtd_parcelas;
+            $tabela->vencimentos = $request->vencimentos;
+        }
+
         $tabela->save();
 
         $advogados = $request->adv_ids ?? [];
@@ -102,7 +110,7 @@ class ProcessosController extends Controller
     {
         $comarcas = Comarca::all();
         $varas = Vara::all();
-        $advogados = Usuario::all(); // Supondo que todos os usuários são advogados
+        $advogados = Usuario::all(); 
         return view('painel-adv.processos.edit', compact('item', 'comarcas', 'varas', 'advogados'));
     }
 
@@ -117,8 +125,14 @@ class ProcessosController extends Controller
         $item->data_aud = $request->data_aud;
         $item->hora_aud = $request->hora_aud;
         $item->tipo_aud = $request->tipo_aud;
+        $item->movimentacao = $request->movimentacao;
+        $item->acordo = $request->has('acordo') ? 1 : 0;
+        if ($item->acordo) {
+            $item->valor_total = $request->valor_total;
+            $item->qtd_parcelas = $request->qtd_parcelas;
+            $item->vencimentos = $request->vencimentos;
+        }
 
-        // Atualiza a relação de advogados responsáveis
         $advogados = $request->adv_ids ?? [];
         if (!empty($advogados)) {
             $advogados = is_array($advogados) ? $advogados : explode(',', $advogados);

@@ -46,7 +46,7 @@ $id = '';
       <tbody>
       @foreach($itens as $item)
          <tr>
-            <td>{{$item->numero}}</td>
+          <td><a href="{{route('processos.edit', $item)}}" style="text-decoration: none; color: inherit;">{{$item->numero}}</a></td>
             <td>{{@$item->cliente->nome}}</td>
             <td>{{@$item->empresa->nome}}</td>
             <td>{{@$item->vara->numero}}</td>
