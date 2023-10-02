@@ -26,7 +26,7 @@ class AudienciasController extends Controller
             $query->where('usuario_id', $usuarioId);
         }
 
-        $itens = $query->orderBy('data_aud', 'desc')->paginate();
+        $itens = $query->with(['advogados', 'usuarioCadastrante'])->orderBy('data_aud', 'desc')->paginate();
 
         return view('painel-adv.audiencias.index', ['itens' => $itens]);
     }

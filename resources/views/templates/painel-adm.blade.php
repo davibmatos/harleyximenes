@@ -69,7 +69,7 @@ $usuario = Usuario::find($id_usuario);
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
                 href="{{ route('painel-adv.prazos.index') }}">
 
-                <div class="sidebar-brand-text mx-3">ADVOGADO</div>
+                <div class="sidebar-brand-text mx-3">{{ $usuario->nome }}</div>
             </a>
 
             <!-- Divider -->

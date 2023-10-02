@@ -51,7 +51,13 @@ class Processo extends Model
         return $this->belongsTo(Usuario::class, 'adv_id');
     }
 
-    public function advogados() {
+    public function advogados()
+    {
         return $this->belongsToMany(Usuario::class, 'advogado_processo', 'processo_id', 'advogado_id');
+    }
+
+    public function usuarioCadastrante()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
     }
 }

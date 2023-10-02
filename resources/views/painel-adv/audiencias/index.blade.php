@@ -50,6 +50,7 @@
                             <th>Comarca</th>
                             <th>Data</th>
                             <th>Hora</th>
+                            <th>Responsáveis</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -63,6 +64,15 @@
                                 <td>{{ @$item->comarca->nome }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->data_aud)->format('d/m/Y') }}</td>
                                 <td>{{ @$item->hora_aud }}</td>
+                                <td>
+                                    @if (count($item->advogados) > 0)
+                                        @foreach ($item->advogados as $advogado)
+                                            {{ $advogado->nome }} <br>
+                                        @endforeach
+                                    @else
+                                        {{ $item->usuarioCadastrante->nome ?? 'Sem informações' }}
+                                    @endif
+                                </td>
                                 <td>
                                     <button class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#editAudienciaModal" data-id="{{ $item->id }}"

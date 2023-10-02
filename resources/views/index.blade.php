@@ -126,6 +126,14 @@
                 /* Ajuste este valor para obter o tamanho desejado */
             }
 
+            .logo-image {
+                width: 210px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: -172px;
+            }
+
 
             * {
                 -webkit-box-sizing: border-box;
@@ -198,8 +206,7 @@
 
     <body>
         <div class="login">
-            <img src="img/logo.jpg" alt="Logo"
-                style="width: 120px; display: block; margin-left: auto; margin-right: auto;">
+            <img src="img/Ijuris.png" alt="Logo" class="logo-image">
             <h1>Login</h1>
             @if (session('error'))
                 <div class="alert alert-danger">
