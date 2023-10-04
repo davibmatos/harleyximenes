@@ -63,7 +63,7 @@
                                 <td>{{ @$item->empresa->nome }}</td>
                                 <td>{{ @$item->vara->numero }}</td>
                                 <td>{{ @$item->comarca->nome }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->data_aud)->format('d/m/Y') }}</td>
+                                <td>{{ $item->data_aud ? \Carbon\Carbon::parse($item->data_aud)->format('d/m/Y') : 'sem data' }}</td>
                                 <td>{{ @$item->hora_aud }}</td>
                                 <td>
                                     @if (count($item->advogados) > 0)

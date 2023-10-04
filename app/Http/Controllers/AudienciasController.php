@@ -24,7 +24,9 @@ class AudienciasController extends Controller
         }
 
         if ($fonte === 'advogado') {
-            $query->where('usuario_id', $usuarioId);
+            $query->whereHas('advogados', function ($q) use ($usuarioId) {
+                $q->where('advogado_id', $usuarioId);
+            });
         }
 
         $itens = $query->with(['advogados', 'usuarioCadastrante'])->orderBy('data_aud', 'desc')->paginate();
@@ -63,7 +65,7 @@ class AudienciasController extends Controller
         $dataAud = $request->data_aud;
         $horaAud = $request->hora_aud;
         $tipoAud = $request->tipo_aud;
-        
+
 
         $processoExistente = Processo::where('numero', $numeroProcesso)->first();
 

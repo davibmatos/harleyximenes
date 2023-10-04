@@ -2,6 +2,16 @@
 @section('title', 'Inserir Prazos')
 @section('content')
     <h6 class="mb-4"><i>CADASTRO DE PRAZOS</i></h6>
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <hr>
     <form method="POST" action="{{ route('prazos.insert') }}">
         @csrf

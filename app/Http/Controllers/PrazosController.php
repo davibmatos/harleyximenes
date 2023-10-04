@@ -33,6 +33,7 @@ class PrazosController extends Controller
         }
 
         // Verifica se o número do processo já existe no sistema
+      
         $processo = Processo::where('numero', $request->numero)->first();
         if (!$processo) {
             return redirect()->back()->withInput()->with('error', 'Número de processo não existe no sistema!');

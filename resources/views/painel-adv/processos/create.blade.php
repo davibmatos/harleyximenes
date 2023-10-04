@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="nome_re">Parte ré</label>
+                            <label for="nome_re">Parte Adversa</label>
                             <input type="text" class="form-control" id="nome_re" name="nome_empresa" required>
                             <input type="hidden" id="empresaIdHidden" name="empresa_id">
                         </div>

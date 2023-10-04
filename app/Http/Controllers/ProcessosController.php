@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Anexo;
 use App\Models\Comarca;
 use App\Models\Processo;
-use App\Models\usuario;
+use App\Models\Usuario;
 use App\Models\Vara;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +33,7 @@ class ProcessosController extends Controller
     public function create()
     {
         $comarcas = Comarca::all();
-        $advogados = usuario::all();
+        $advogados = Usuario::all();
         return view('painel-adv.processos.create', compact('comarcas', 'advogados'));
     }
 
