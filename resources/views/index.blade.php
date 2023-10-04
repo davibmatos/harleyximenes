@@ -215,7 +215,7 @@
             @endif
             <form method="post" action="{{ route('usuarios.login') }}">
                 @csrf
-                <input name="usuario" placeholder="Email" required="required" />
+                <input name="usuario" placeholder="Usuario" required="required" />
                 <input type="password" name="senha" placeholder="Senha" required="required" />
                 @if (session('primeiro_acesso'))
                     <div id="new-password-field">

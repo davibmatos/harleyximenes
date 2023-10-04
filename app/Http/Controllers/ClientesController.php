@@ -61,7 +61,7 @@ class ClientesController extends Controller
         return view('painel-adv.clientes.edit', ['item' => $item]);
     }
 
-    public function update(Request $request, Cliente $item)
+    public function editar(Request $request, Cliente $item)
     {
         $item->nome = $request->nome;
         $item->cpf = $request->cpf;

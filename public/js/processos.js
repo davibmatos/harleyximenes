@@ -1,12 +1,12 @@
 document.getElementById('btn_buscar_cliente').addEventListener('click', async function (event) {
-    event.preventDefault(); // Previne a ação padrão do botão
+    event.preventDefault(); 
 
     const cpf = document.getElementById('busca_cliente').value;
 
     // Obtendo o token CSRF
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    const response = await fetch(`/harleyadvogados/public/clientes/search?cpf=${cpf}`, {
+    const response = await fetch(`/clientes/search?cpf=${cpf}`, {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': csrfToken
@@ -35,7 +35,7 @@ document.getElementById('btn_buscar_empresa').addEventListener('click', async fu
     // Obtendo o token CSRF
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    const response = await fetch(`/harleyadvogados/public/empresas/search?cnpj=${cnpj}`, {
+    const response = await fetch(`/empresas/search?cnpj=${cnpj}`, {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': csrfToken

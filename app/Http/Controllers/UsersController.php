@@ -30,7 +30,7 @@ class UsersController extends Controller
             Session::put('id_usuario', $usuarios->id);
             Session::put('usuario', $usuarios->usuario);
             Session::put('nivel_usuario', $usuarios->nivel);
-            Session::put('cpf_usuario', $usuarios->cpf);
+            // Session::put('cpf_usuario', $usuarios->cpf);
 
             switch (Session::get('nivel_usuario')) {
                 case 'admin':

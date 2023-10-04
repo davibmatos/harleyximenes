@@ -4,7 +4,7 @@ document.getElementById('comarca').addEventListener('change', async function (ev
     // Obtendo o token CSRF
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    const response = await fetch(`/harleyadvogados/public/get-varas?comarca_id=${comarcaId}`, {
+    const response = await fetch(`/get-varas?comarca_id=${comarcaId}`, {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': csrfToken

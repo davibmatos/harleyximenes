@@ -18,7 +18,11 @@ class Processo extends Model
         'comarca_id',
         'data_aud',
         'hora_aud',
-        'tipo_aud'
+        'tipo_aud',
+        'acordo',
+        'valor_total',
+        'qtd_parcelas',
+        'vencimentos'
     ];
 
     public function anexos()

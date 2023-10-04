@@ -6,12 +6,13 @@ use App\Models\Audiencia;
 use App\Models\Processo;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 class AudienciasController extends Controller
 {
     public function index(Request $request, $fonte = null)
     {
-        $usuarioId = auth()->id();
+        $usuarioId = Session::get('id_usuario');
         $dataInicio = $request->get('data_ini');  // Trocado para corresponder ao nome do campo no form
         $dataFim = $request->get('data_fim');  // Trocado para corresponder ao nome do campo no form
         $query = Processo::query();
@@ -62,7 +63,7 @@ class AudienciasController extends Controller
         $dataAud = $request->data_aud;
         $horaAud = $request->hora_aud;
         $tipoAud = $request->tipo_aud;
-        $usuarioId = auth()->id(); // Obtém o ID do usuário logado
+        
 
         $processoExistente = Processo::where('numero', $numeroProcesso)->first();
 
@@ -71,14 +72,6 @@ class AudienciasController extends Controller
             $processoExistente->hora_aud = $horaAud;
             $processoExistente->tipo_aud = $tipoAud;
             $processoExistente->save();
-        } else {
-            $novoProcesso = new Processo();
-            $novoProcesso->numero = $numeroProcesso;
-            $novoProcesso->usuario_id = $usuarioId;
-            $novoProcesso->data_aud = $dataAud;
-            $novoProcesso->hora_aud = $horaAud;
-            $novoProcesso->tipo_aud = $tipoAud;
-            $novoProcesso->save();
         }
 
         return redirect()->route('audiencias.index'); // Redireciona para a lista de audiências

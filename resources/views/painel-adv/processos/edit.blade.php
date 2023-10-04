@@ -176,6 +176,7 @@
     <script>
         $(document).ready(function() {
             $('#advogado').select2();
+            $('#valor_total').mask('000.000.000.000.000,00', {reverse: true});
         });
     </script>
 @endsection

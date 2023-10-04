@@ -28,8 +28,9 @@
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
     </div>
+    <br>
 
-    <a href="{{ route('audiencias.inserir') }}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Audiência</a>
+    {{-- <a href="{{ route('audiencias.inserir') }}" type="button" class="mt-4 mb-4 btn btn-primary">Inserir Audiência</a> --}}
 
     @if (session('error'))
         <div class="alert alert-danger mt-2">

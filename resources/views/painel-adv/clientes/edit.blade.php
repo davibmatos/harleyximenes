@@ -56,11 +56,25 @@
                             name="ecivil">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="endereco">Endereço</label>
                         <input value="{{ $item->endereco }}" type="text" class="form-control" id="endereco"
                             name="endereco">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="endereco">Telefone</label>
+                        <input value="{{ $item->telefone }}" type="text" class="form-control" id="telefone"
+                            name="telefone">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="endereco">Telefone 2</label>
+                        <input value="{{ $item->telefone2 }}" type="text" class="form-control" id="telefone2"
+                            name="telefone2">
                     </div>
                 </div>
             </div>           
