@@ -97,8 +97,7 @@ class ClientesController extends Controller
     public function delete(Cliente $item)
     {
         try {
-
-            dd('cheguei aqui');
+                       
             $item->delete();
 
             return redirect()->route('clientes.index');
