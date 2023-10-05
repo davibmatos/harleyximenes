@@ -106,14 +106,22 @@ class AudienciasController extends Controller
 
     public function delete(Audiencia $item)
     {
-        $item->delete();
+        $processo = Processo::find($item->processo_id);
+
+        if ($processo) {
+
+            $processo->data_aud = null;
+            $processo->hora_aud = null;
+
+            $processo->save();
+        }
         return redirect()->route('audiencias.index');
     }
 
     public function modal($id)
     {
-        $item = Audiencia::orderby('id', 'desc')->paginate();
-        return view('painel-adv.audiencias.index', ['itens' => $item, 'id' => $id]);
+        $item = Processo::orderby('id', 'desc')->paginate();
+        return view('painel-adv.processos.index', ['itens' => $item, 'id' => $id]);
     }
 
     public function getCliente(Request $request)

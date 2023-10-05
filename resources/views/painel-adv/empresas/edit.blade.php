@@ -1,7 +1,7 @@
 @extends('templates.painel-adm')
-@section('title', 'Editar Inquilinos')
+@section('title', 'Editar Parte Adversa')
 @section('content')
-    <h6 class="mb-4"><i>EDIÇÃO DE EMPRESAS</i></h6>
+    <h6 class="mb-4"><i>EDIÇÃO DE PARTE ADVERSA</i></h6>
     <hr>
     <form method="POST" action="{{ route('empresas.editar', $item) }}">
         @csrf

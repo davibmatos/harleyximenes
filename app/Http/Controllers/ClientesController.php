@@ -8,6 +8,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 
 class ClientesController extends Controller
 {
@@ -125,8 +126,12 @@ class ClientesController extends Controller
         }
     }
 
-    public function addDocument(Request $request, Cliente $item)
+    public function addDocument(Request $request, $id)
     {
+        $item = Cliente::find($id);
+        if (!$item) {
+            return redirect()->back()->with('error', 'Cliente não encontrado.');
+        }
         if ($request->hasFile('documentos')) {
             foreach ($request->file('documentos') as $file) {
                 $path = $file->store('documentos', 'public');
@@ -163,5 +168,21 @@ class ClientesController extends Controller
         $cpf = $request->get('cpf');
         $cliente = Cliente::where('cpf', $cpf)->first();
         return response()->json($cliente);
+    }
+
+    public function downloadDocument($cliente_id, $documento_id)
+    {
+        $cliente = Cliente::findOrFail($cliente_id);
+        $documento = $cliente->documentos->where('id', $documento_id)->first();
+
+        if ($documento) {
+            $path = storage_path("app/public/{$documento->nome_arquivo}");
+
+            return Response::download($path, basename($documento->nome_arquivo), [
+                'Content-Type' => 'application/pdf',
+            ]);
+        } else {
+            return redirect()->back()->with('message', 'Documento não encontrado.');
+        }
     }
 }

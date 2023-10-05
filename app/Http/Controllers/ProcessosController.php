@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Anexo;
 use App\Models\Comarca;
+use App\Models\Empresa;
+use App\Models\Cliente;
 use App\Models\Processo;
 use App\Models\Usuario;
 use App\Models\Vara;
@@ -62,6 +64,13 @@ class ProcessosController extends Controller
             return redirect()->back()->withInput()->with('error', 'Número de processo já existe no sistema!');
         }
 
+        $cliente = Cliente::find($request->cliente_id);
+        $empresa = Empresa::find($request->empresa_id);
+
+        if (!$cliente || !$empresa) {
+            return redirect()->back()->withInput()->with('error', 'Cliente ou Parte Adversa não encontrados.');
+        }
+
         $tabela = new Processo();
         $tabela->numero = $request->numero;
         $tabela->usuario_id = $request->usuario_id;
@@ -69,10 +78,20 @@ class ProcessosController extends Controller
         $tabela->cliente_id = $request->cliente_id;
         $tabela->empresa_id = $request->empresa_id;
         $tabela->comarca_id = $request->comarca_id;
+        $tabela->movimentacao = $request->movimentacao;
         $tabela->data_aud = $request->data_aud;
         $tabela->hora_aud = $request->hora_aud;
         $tabela->tipo_aud = $request->tipo_aud;
         $tabela->adv_id = $request->adv_id;
+
+        $tabela->acordo = $request->has('acordo') ? true : false;
+
+        if ($tabela->acordo) {
+            $tabela->valor_total = $request->valor_total;
+            $tabela->qtd_parcelas = $request->qtd_parcelas;
+            $tabela->vencimentos = $request->vencimentos;
+        }
+
 
         $tabela->save();
 
@@ -114,6 +133,7 @@ class ProcessosController extends Controller
         $item->empresa_id = $request->empresa_id;
         $item->cliente_id = $request->cliente_id;
         $item->comarca_id = $request->comarca_id;
+        $item->movimentacao = $request->movimentacao;
         $item->data_aud = $request->data_aud;
         $item->hora_aud = $request->hora_aud;
         $item->tipo_aud = $request->tipo_aud;
@@ -132,6 +152,19 @@ class ProcessosController extends Controller
                 $anexoPath = $anexo->store('anexos', 'public');
                 $item->anexos()->create(['caminho_arquivo' => $anexoPath]);
             }
+        }
+
+        $item->acordo = $request->has('acordo') ? true : false;
+
+        if ($item->acordo) {
+            $item->valor_total = $request->valor_total;
+            $item->qtd_parcelas = $request->qtd_parcelas;
+            $item->vencimentos = $request->vencimentos;
+        } else {
+            
+            $item->valor_total = null;
+            $item->qtd_parcelas = null;
+            $item->vencimentos = null;
         }
 
         $item->save();

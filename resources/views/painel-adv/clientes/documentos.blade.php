@@ -8,7 +8,8 @@
 
         <a href="{{ route('clientes.index', $item) }}" class="btn btn-secondary mb-4">Voltar para Clientes</a>
 
-        <form method="POST" action="{{ route('documentos.adicionar', $item) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('documentosCliente.adicionar', ['cliente' => $item->id]) }}"
+            enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="nome_documento">Nome do Documento</label>
@@ -31,11 +32,13 @@
                     <span>{{ $documento->nome_documento ?? basename($documento->nome_arquivo) }}</span>
                     <!-- Exibe o nome do documento se existir -->
                     <form
-                        action="{{ route('documentos.deletar', ['cliente' => $item->id, 'documento' => $documento->id]) }}"
+                        action="{{ route('documentosCliente.deletar', ['cliente' => $item->id, 'documento' => $documento->id]) }}"
                         method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        <a href="{{ route('documentos.download', ['cliente' => $item->id, 'documento' => $documento->id]) }}"
+                            class="btn btn-success btn-sm">Download</a>
                     </form>
                 </div>
             @endforeach

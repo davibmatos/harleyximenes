@@ -16,4 +16,9 @@ class Empresa extends Model
         'telefone2',
         'email',
     ];
+
+    public function documentoEmpresas()
+    {
+        return $this->hasMany(DocumentoEmpresa::class);
+    }
 }

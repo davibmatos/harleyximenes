@@ -41,6 +41,8 @@ Route::post('audiencias', [AudienciasController::class, 'insert'])->name('audien
 Route::get('/getCliente', [ProcessosController::class, 'getCliente'])->name('processos.getCliente');
 Route::get('/get-audiencia-details', [AudienciasController::class, 'getAudienciaDetails']);
 Route::post('/audiencias/update', [AudienciasController::class, 'updateAudiencia'])->name('audiencias.update');
+Route::get('audiencias/{item}/delete}', [AudienciasController::class, 'modal'])->name('audiencias.modal');
+Route::delete('audiencias/{item}', [AudienciasController::class, 'delete'])->name('audiencias.delete');
 
 
 
@@ -63,9 +65,9 @@ Route::get('painel-adv/meus-processos', [ProcessosController::class, 'meusProces
 
 //ROTAS PARA CLIENTES
 // Route::post('/clientes/{item}/documentos/adicionar', [ClientesController::class, 'addDocument'])->name('documentos.adicionar');
-Route::delete('clientes/{cliente}/documentos/{documento}', [ClientesController::class, 'deleteDocument'])->name('documentos.deletar');
-Route::post('/clientes/{item}/adicionar-documentos', [ClientesController::class, 'addDocument'])->name('documentos.adicionar');
 Route::get('clientes/{item}/documentos', [ClientesController::class, 'documentos'])->name('clientes.documentos');
+Route::delete('clientes/{cliente}/documentos/{documento}', [ClientesController::class, 'deleteDocument'])->name('documentosCliente.deletar');
+Route::post('/clientes/{cliente}/adicionar-documentos', [ClientesController::class, 'addDocument'])->name('documentosCliente.adicionar');
 Route::get('clientes', [ClientesController::class, 'index'])->name('clientes.index');
 Route::post('clientes', [ClientesController::class, 'insert'])->name('clientes.insert');
 Route::get('clientes/inserir', [ClientesController::class, 'create'])->name('clientes.inserir');
@@ -73,9 +75,13 @@ Route::put('clientes/{item}', [ClientesController::class, 'editar'])->name('clie
 Route::get('clientes/{item}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
 Route::get('clientes/{item}/delete', [ClientesController::class, 'modal'])->name('clientes.modal');
 Route::delete('clientes/{item}', [ClientesController::class, 'delete'])->name('clientes.delete');
+Route::get('clientes/{cliente}/documentos/{documento}/download', [ClientesController::class, 'downloadDocument'])->name('documentos.download');
 
 
 //ROTAS PARA EMPRESAS
+Route::post('/empresas/{empresa}/documentos', [EmpresasController::class, 'addDocument'])->name('documentosEmpresa.adicionar');
+Route::delete('/empresas/{empresa}/documentos/{documento}', [EmpresasController::class, 'deleteDocument'])->name('documentosEmpresa.deletar');
+Route::get('/empresas/{item}/documentosEmpresa', [EmpresasController::class, 'documentosEmpresa'])->name('documentosEmpresa.index');
 Route::get('empresas', [EmpresasController::class, 'index'])->name('empresas.index');
 Route::post('empresas', [EmpresasController::class, 'insert'])->name('empresas.insert');
 Route::get('empresas/inserir', [EmpresasController::class, 'create'])->name('empresas.inserir');
@@ -85,6 +91,10 @@ Route::get('empresas/{item}/delete', [EmpresasController::class, 'modal'])->name
 Route::delete('empresas/{item}', [EmpresasController::class, 'delete'])->name('empresas.delete');
 // Rota para busca de empresas por CNPJ
 Route::get('api/empresas', [EmpresasController::class, 'search'])->name('empresas.search');
+Route::get('/empresas/{empresa}/documentos', [EmpresasController::class, 'documentos'])->name('empresas.documentos');
+Route::get('/empresas/{empresa}/documentos/{documento}/download', [EmpresasController::class, 'downloadDocument'])->name('documentosEmpresa.download');
+
+
 
 //ROTAS PARA PRAZOS
 

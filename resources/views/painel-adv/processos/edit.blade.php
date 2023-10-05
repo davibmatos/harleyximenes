@@ -28,7 +28,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="nome_autor">Parte autora</label>
-                    <input type="text" class="form-control" id="nome_autor" name="nome_cliente" required
+                    <input type="text" class="form-control" id="nome_autor" name="nome_cliente" required disabled
                         value="{{ $item->cliente->nome }}">
                     <input type="hidden" id="clienteIdHidden" name="cliente_id" value="{{ $item->cliente->id }}">
                 </div>
@@ -36,7 +36,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label for="nome_re">Parte ré</label>
-                    <input type="text" class="form-control" id="nome_re" name="nome_empresa" required
+                    <input type="text" class="form-control" id="nome_re" name="nome_empresa" required disabled
                         value="{{ $item->empresa->nome }}">
                     <input type="hidden" id="empresaIdHidden" name="empresa_id" value="{{ $item->empresa->id }}">
                 </div>

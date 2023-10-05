@@ -79,9 +79,7 @@
                                         data-target="#editAudienciaModal" data-id="{{ $item->id }}"
                                         data-hora="{{ $item->hora_aud }}" data-data="{{ $item->data_aud }}"><i
                                             class="fas fa-clock"></i></button>
-                                    <a href="{{ route('processos.modal', $item) }}"><i
-                                            class="fas fa-trash text-danger mr-1"></i></a>
-
+                                    <a href="{{ route('audiencias.modal', $item) }}"></a>
                                 </td>
                             </tr>
                         @endforeach

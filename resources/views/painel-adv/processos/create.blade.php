@@ -36,14 +36,14 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nome_autor">Parte autora</label>
-                            <input type="text" class="form-control" id="nome_autor" name="nome_cliente" required>
+                            <input type="text" class="form-control" id="nome_autor" name="nome_cliente" required disabled>
                             <input type="hidden" id="clienteIdHidden" name="cliente_id">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="nome_re">Parte Adversa</label>
-                            <input type="text" class="form-control" id="nome_re" name="nome_empresa" required>
+                            <input type="text" class="form-control" id="nome_re" name="nome_empresa" required disabled>
                             <input type="hidden" id="empresaIdHidden" name="empresa_id">
                         </div>
                     </div>
@@ -124,23 +124,25 @@
                     </div>
                 </div>
 
-                <div class="row mt-1">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="valor_total">Valor Total</label>
-                            <input type="text" class="form-control" id="valor_total" name="valor_total">
+                <div id="campos-acordo" style="display: none;">
+                    <div class="row mt-1">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="valor_total">Valor Total</label>
+                                <input type="text" class="form-control" id="valor_total" name="valor_total">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="qtd_parcelas">Quantidade de Parcelas</label>
-                            <input type="number" class="form-control" id="qtd_parcelas" name="qtd_parcelas">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="qtd_parcelas">Quantidade de Parcelas</label>
+                                <input type="number" class="form-control" id="qtd_parcelas" name="qtd_parcelas">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="vencimentos">Vencimentos (dd/mm/aaaa separados por vírgula)</label>
-                            <input type="text" class="form-control" id="vencimentos" name="vencimentos">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="vencimentos">Vencimentos (dd/mm/aaaa separados por vírgula)</label>
+                                <input type="text" class="form-control" id="vencimentos" name="vencimentos">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,9 +169,22 @@
                 $(document).ready(function() {
                     $('#advogado').select2();
                     $('#valor_total').mask('000.000.000.000.000,00', {reverse: true});
-
                 });
             </script>
+            <script>
+                $(document).ready(function() {
+    // Ouvinte para mudanças no checkbox de acordo
+    $('#acordo').change(function() {
+        if (this.checked) {
+            // Mostra os campos de acordo se o checkbox está marcado
+            $('#campos-acordo').show();
+        } else {
+            // Esconde os campos de acordo se o checkbox não está marcado
+            $('#campos-acordo').hide();
+        }
+    });
+});
+</script>
             
 
         @endsection
